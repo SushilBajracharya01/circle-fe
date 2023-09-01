@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom"
 import Input from "../../components/Input"
 
 function Login() {
     return (
-        <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <img
                     className="mx-auto h-12 w-auto"
@@ -116,6 +117,10 @@ function Login() {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div className="sm:mx-auto sm:w-full sm:max-w-md mt-5 text-center text-gray-800">
+                New to Circle? <Link to="/register" className="ml-2 font-bold text-blue-600">Join now</Link>
             </div>
         </div>
     )
