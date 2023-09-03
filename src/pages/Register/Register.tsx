@@ -1,17 +1,43 @@
-import Button from "../../components/Button"
-import Input from "../../components/Input"
-import Logo from "../../components/Logo"
-
-import RegisterImage from '../../assets/register-img.svg';
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
-function RegisterPage() {
+//
+import Logo from "../../components/Logo"
+import Input from "../../components/Input"
+import Button from "../../components/Button"
+
+//
+import RegisterImage from '../../assets/register-img.svg';
+
+//
+import registerSchema from "../../schemas/RegisterSchema";
+
+//
+import { IRegisterFormData } from "../../types";
+
+
+/**
+ * 
+ */
+export default function RegisterPage() {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(registerSchema),
+    });
+    console.log(errors, 'errors')
+    const onSubmit = (data: IRegisterFormData) => {
+        console.log(data, 'data');
+    }
     return (
         <div className="container mx-auto min-h-screen py-8 px-4">
             <div className="md:mb-5">
                 <Logo />
             </div>
-            <form className="md:space-y-8 divide-y">
+            <form className="md:space-y-8 divide-y" onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid md:grid-cols-2 ">
                     <div className="hidden md:block">
                         <div>
@@ -39,6 +65,8 @@ function RegisterPage() {
                                             name="username"
                                             isRequired
                                             type="text"
+                                            register={register}
+                                            errors={errors}
                                         />
                                     </div>
                                 </div>
@@ -54,6 +82,8 @@ function RegisterPage() {
                                             name="fullname"
                                             isRequired
                                             type="text"
+                                            register={register}
+                                            errors={errors}
                                         />
                                     </div>
                                 </div>
@@ -69,6 +99,8 @@ function RegisterPage() {
                                             name="email"
                                             isRequired
                                             type="email"
+                                            register={register}
+                                            errors={errors}
                                         />
                                     </div>
                                 </div>
@@ -82,8 +114,27 @@ function RegisterPage() {
                                     <div className="max-w-lg">
                                         <Input
                                             name="password"
-                                            isRequired
+                                            // isRequired
                                             type="password"
+                                            register={register}
+                                            errors={errors}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+                                <label htmlFor="country" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                                    Country
+                                </label>
+                                <div className="mt-1 sm:mt-0 sm:col-span-2">
+                                    <div className="max-w-lg">
+                                        <Input
+                                            name="country"
+                                            isRequired
+                                            type="text"
+                                            register={register}
+                                            errors={errors}
                                         />
                                     </div>
                                 </div>
@@ -123,13 +174,8 @@ function RegisterPage() {
                         </div>
 
                     </div>
-
-
-
                 </div>
             </form>
         </div>
     )
 }
-
-export default RegisterPage;
