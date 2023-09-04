@@ -1,7 +1,7 @@
 import { IButtonProps } from "../types";
 
-export default function Button({ varient = 'primary', label, type = "submit", onClick, icon }: IButtonProps) {
-    let classes = 'inline-flex items-center px-4 py-2 border shadow-sm text-base font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 ';
+export default function Button({ varient = 'primary', label, type = "submit", onClick, icon, disabled }: IButtonProps) {
+    let classes = 'inline-flex items-center px-4 py-2 border shadow-sm text-base font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-75 ';
     switch (varient) {
         case 'primary':
             classes += 'border-transparent text-white bg-primary-500 hover:bg-primary-600 focus:ring-primary-100';
@@ -20,8 +20,8 @@ export default function Button({ varient = 'primary', label, type = "submit", on
     return (
         <button type={type}
             className={classes}
-            // "border-transparent text-white bg-indigo-600 hover:bg-indigo-700  focus:ring-indigo-500"
-            onClick={onClick}
+            onClick={() => onClick?.()}
+            disabled={disabled}
         >
             {
                 icon &&
