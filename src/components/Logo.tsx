@@ -4,7 +4,7 @@ export default function Logo({ noText, horizontal }: ILogoProps) {
     return (
         <div className={`text-center ${horizontal ? "flex gap-3 justify-center items-center" : ''}`}>
             <img
-                className="mx-auto h-12 w-auto"
+                className="mx-auto h-10 w-auto"
                 src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
                 alt="Workflow"
             />

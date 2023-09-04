@@ -30,8 +30,8 @@ export default function Header() {
         dispatch(logOutUser())
     }
     return (
-        <Popover className="relative bg-gray-50">
-            <div className="flex justify-between items-center border-b-2 border-gray-100 py-3 px-3 md:justify-start md:space-x-10">
+        <Popover className="relative bg-gray-50 header">
+            <div className="flex justify-between items-center border-b-2 border-gray-100 py-2 px-3 md:justify-start md:space-x-10">
                 {/* right */}
                 <div className="flex justify-start lg:w-0 lg:flex-1">
                     <Link to="/">
@@ -53,7 +53,7 @@ export default function Header() {
                     <NavButton
                         to={"/"}
                         label={'Circle'}
-                        icon={<MdGroups fontSize="30" />}
+                        icon={<MdGroups fontSize="22" />}
                     />
                 </nav>
 
@@ -65,7 +65,7 @@ export default function Header() {
                                 <Popover.Button
                                     className={classNames(
                                         open ? 'bg-gray-200' : '',
-                                        'w-11 h-11 flex justify-center items-center rounded-full bg-gray-300 cursor-pointer hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-600'
+                                        'w-10 h-10 flex justify-center items-center rounded-full bg-gray-300 cursor-pointer hover:bg-gray-200 transition-colors focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-600'
                                     )}
                                 >
                                     <BiSolidChevronDown className='text-primary-500' fontSize={30} />
