@@ -8,9 +8,13 @@ import { useMutationHook } from "../../hooks/react-query/useQueryHook";
 import Button from "../../components/Button";
 import { ILoginFormProps } from "../../types";
 import { toast } from "react-toastify";
+import { useAppDispatch } from "../../_redux/redux";
+import { handleSetCredentials } from "../../_redux/authSlice";
 
 function LoginPage() {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
     const {
         register,
         handleSubmit,
@@ -22,7 +26,9 @@ function LoginPage() {
     const { mutate, isLoading } = useMutationHook({
         queryRoute: '/auth',
         options: {
-            onSuccess: () => {
+            onSuccess: (data) => {
+                dispatch(handleSetCredentials(data));
+
                 navigate('/feed');
             },
             onError: (err) => {
