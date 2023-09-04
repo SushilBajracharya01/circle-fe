@@ -30,7 +30,7 @@ function LoginPage() {
             onSuccess: (data) => {
                 dispatch(handleSetCredentials(data));
 
-                navigate('/feed');
+                navigate('/');
             },
             onError: (err) => {
                 toast.error(err.message);

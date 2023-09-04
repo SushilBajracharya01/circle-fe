@@ -63,7 +63,6 @@ export default function PersistLoginWrapper() {
 
     let content = null;
 
-    console.log(persist, 'persist', token, 'token', isLoading, 'isLoading', isError)
     if (!persist) {
         console.log("No persist");
         content = <Outlet />;

@@ -21,29 +21,35 @@ import Feed from './pages/Feed';
 import { ROLES } from './constants/constants';
 import PersistLoginWrapper from './components/persistLogin/PersistLoginWrapper';
 import RequireAuth from './components/requireAuth/RequireAuthWrapper';
+import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 
 const router = createBrowserRouter([
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />,
-  },
   {
     path: "/",
     element: <PersistLoginWrapper />,
     children: [{
-      path: '',
       element: <RequireAuth allowedRoles={ROLES} />,
       children: [
         {
-          path: 'feed',
+          path: '',
           element: <Feed />
         }
       ]
     }
+    ]
+  },
+  {
+    path: "/",
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        path: "register",
+        element: <RegisterPage />,
+      },
     ]
   },
 ]);
