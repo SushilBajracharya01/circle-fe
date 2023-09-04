@@ -12,7 +12,7 @@ import { LOCAL_ACCESS_TOKEN_NAME } from '../../constants/constants';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Axios(options?: any) {
 	options = options ?? {};
-	const baseURL = options.env ? process.env[options.env] : process.env.REACT_APP_BACKEND_API;
+	const baseURL = options.env ? import.meta.env[options.env] : import.meta.env.VITE_BACKEND_API;
 
 	return axios.create({
 		baseURL: baseURL,
@@ -35,7 +35,7 @@ Axios().interceptors.response.use((response) => response, async function (error:
 
 			try {
 				const refreshToken = jsCookie.get(LOCAL_REFRESH_TOKEN_NAME);
-				const response = await axios.get(`${process.env.REACT_APP_BACKEND_API}/auth/refresh`, {
+				const response = await axios.get(`${import.meta.env.VITE_BACKEND_API}/auth/refresh`, {
 					headers: {
 						Authorization: `Bearer ${refreshToken}`
 					}

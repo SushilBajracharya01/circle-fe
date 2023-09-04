@@ -40,7 +40,7 @@ export default function PersistLoginWrapper() {
 
 
     useEffect(() => {
-        if (effectRan.current === true || process.env.NODE_ENV !== "development") {
+        if (effectRan.current === true || import.meta.env.NODE_ENV !== "development") {
             const verifyRefreshToken = async () => {
                 console.log("verifyRefreshToken");
 

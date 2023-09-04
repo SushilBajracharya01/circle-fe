@@ -9,6 +9,7 @@ export function authHeader(options: IAuthOptionsProps) {
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const headers: any = {};
+	console.log(multipart, 'multipart')
 	if (multipart) {
 		headers['Content-Type'] = 'multipart/form-data';
 	}
@@ -19,7 +20,6 @@ export function authHeader(options: IAuthOptionsProps) {
 	if (Token) {
 		headers['Authorization'] = `Bearer ${Token}`;
 	}
-
 	return headers;
 }
 

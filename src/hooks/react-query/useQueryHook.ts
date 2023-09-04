@@ -4,7 +4,9 @@ import { IAuthOptionsProps, authHeader } from '../../_helpers/auth-header';
 import { useMutation, useQuery } from 'react-query';
 
 interface IQueryOptions {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onSuccess?: (data: any) => void;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onError?: (error: any) => void;
 	refetchInterval?: number;
 	enabled?: boolean;
@@ -23,8 +25,8 @@ interface IQueryHook {
 export const useQueryHook = ({ queryName, queryRoute, params = [], options = {}, axiosOptions }: IQueryHook) => {
 	const requestService = async () => {
 		try {
-			let queryParams = params.map((p) => p.join('='));
-			let response = await Axios(axiosOptions).get(queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : ''));
+			const queryParams = params.map((p) => p.join('='));
+			const response = await Axios(axiosOptions).get(queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : ''));
 			return response?.data || {};
 		} catch (error) {
 			console.log(error);
@@ -42,6 +44,7 @@ interface IMutationHook {
 	method?: 'post' | 'patch' | 'put' | 'delete';
 	params?: [string, string | number][];
 	options?: IQueryOptions;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	axiosOptions?: any;
 	env?: string | null;
 }
@@ -54,14 +57,15 @@ export const useMutationHook = ({
 	axiosOptions = {},
 	env = null,
 }: IMutationHook) => {
-	let queryParams = params.map((p) => p.join('='));
+	const queryParams = params.map((p) => p.join('='));
 	return useMutation({
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		mutationFn: async (data: { [key: string]: any }) => {
-			let baseUri = process.env.REACT_APP_BACKEND_API;
-			let envUri = env && process.env[env];
-
-			let uri = env ? envUri : baseUri;
-			let response = await axios({
+			const baseUri = import.meta.env.VITE_BACKEND_API;
+			const envUri = env && import.meta.env[env];
+			console.log(baseUri, 'baseUri')
+			const uri = env ? envUri : baseUri;
+			const response = await axios({
 				method: method,
 				url: `${uri}${queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : '')
 					}`,

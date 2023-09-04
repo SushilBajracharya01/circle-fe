@@ -9,6 +9,7 @@ export interface IInputProps {
     register?: any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     errors?: any;
+    disabled?: boolean;
 }
 
 export interface IButtonProps {
@@ -16,7 +17,8 @@ export interface IButtonProps {
     type?: 'button' | 'submit';
     label: string;
     icon?: ReactElement;
-    onClick: () => void;
+    onClick?: () => void;
+    disabled?: boolean;
 }
 
 export interface IPasswordProps {
@@ -24,6 +26,7 @@ export interface IPasswordProps {
     isRequired?: boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register?: any;
+    disabled?: boolean;
 }
 
 export interface IRegisterFormData {

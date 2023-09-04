@@ -15,6 +15,7 @@ import registerSchema from "../../schemas/RegisterSchema";
 
 //
 import { IRegisterFormData } from "../../types";
+import { useMutationHook } from "../../hooks/react-query/useQueryHook";
 
 
 /**
@@ -28,9 +29,21 @@ export default function RegisterPage() {
     } = useForm({
         resolver: yupResolver(registerSchema),
     });
-    console.log(errors, 'errors')
+
+    const { mutate, isLoading } = useMutationHook({
+        queryRoute: '/users',
+        axiosOptions: {
+            multipart: true,
+        }
+    })
     const onSubmit = (data: IRegisterFormData) => {
-        console.log(data, 'data');
+        const formData = new FormData();
+        formData.append('username', data.username);
+        formData.append('fullname', data.fullname);
+        formData.append('email', data.email);
+        formData.append('password', data.password);
+        formData.append('country', data.country);
+        mutate(formData);
     }
     return (
         <div className="container mx-auto min-h-screen py-8 px-4">
@@ -67,6 +80,7 @@ export default function RegisterPage() {
                                             type="text"
                                             register={register}
                                             errors={errors}
+                                            disabled={isLoading}
                                         />
                                     </div>
                                 </div>
@@ -84,6 +98,7 @@ export default function RegisterPage() {
                                             type="text"
                                             register={register}
                                             errors={errors}
+                                            disabled={isLoading}
                                         />
                                     </div>
                                 </div>
@@ -101,6 +116,7 @@ export default function RegisterPage() {
                                             type="email"
                                             register={register}
                                             errors={errors}
+                                            disabled={isLoading}
                                         />
                                     </div>
                                 </div>
@@ -118,6 +134,7 @@ export default function RegisterPage() {
                                             type="password"
                                             register={register}
                                             errors={errors}
+                                            disabled={isLoading}
                                         />
                                     </div>
                                 </div>
@@ -135,6 +152,7 @@ export default function RegisterPage() {
                                             type="text"
                                             register={register}
                                             errors={errors}
+                                            disabled={isLoading}
                                         />
                                     </div>
                                 </div>
@@ -165,7 +183,7 @@ export default function RegisterPage() {
                         <div className="mt-10">
                             <Button
                                 label="Submit"
-                                onClick={() => { }}
+                                disabled={isLoading}
                             />
                         </div>
 
