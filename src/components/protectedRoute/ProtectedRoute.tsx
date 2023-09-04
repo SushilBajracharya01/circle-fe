@@ -4,7 +4,7 @@ import useAuth from "../../hooks/useAuth";
 function ProtectedRoute() {
     const location = useLocation();
     const { token } = useAuth();
-
+    console.log(token, 'protected route')
     const content = !token ? (
         <Outlet />
     ) : (

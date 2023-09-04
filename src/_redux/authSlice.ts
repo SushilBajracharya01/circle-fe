@@ -22,6 +22,8 @@ export const { setCredentials, logOut } = authSlice.actions
 export default authSlice.reducer;
 
 export const logOutUser = () => (dispatch: AppDispatch) => {
+    localStorage.removeItem(LOCAL_ACCESS_TOKEN_NAME);
+    jsCookie.remove(LOCAL_REFRESH_TOKEN_NAME);
     dispatch(logOut());
 }
 

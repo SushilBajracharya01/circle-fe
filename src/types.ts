@@ -63,3 +63,22 @@ export interface IAuthHeaderProps {
     showMenu: boolean;
     handleToggleMenu: () => void;
 }
+
+export interface ILogoProps {
+    noText?: boolean;
+    horizontal?: boolean;
+}
+
+export interface IDropDownButtonProps {
+    label: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    icon?: any;
+    onClick: () => void;
+}
+
+export interface INavButtonProps {
+    to: string;
+    label: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    icon: any;
+}
