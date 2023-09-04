@@ -12,3 +12,8 @@
 .auth .auth-main {
     min-height: calc(100vh - 4rem);
 }
+
+.auth .scroll-main {
+    height: calc(100vh - 4rem);
+    overflow-y: auto;
+}
