@@ -5,9 +5,10 @@ import { jwtCheck } from './token-handler';
  */
 export function authHeader(options: IAuthOptionsProps) {
 	const { refreshToken, multipart } = options;
-	let Token = refreshToken || jwtCheck();
+	const Token = refreshToken || jwtCheck();
 
-	let headers: any = {};
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const headers: any = {};
 	if (multipart) {
 		headers['Content-Type'] = 'multipart/form-data';
 	}
