@@ -1,7 +1,8 @@
 import React from 'react'
+import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client'
-import './index.css';
-
+import { ToastContainer } from 'react-toastify';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -9,9 +10,13 @@ import {
 
 import LoginPage from './pages/Login';
 import RegisterPage from './pages/Register';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { Provider } from 'react-redux';
+
+//
 import { store } from './_redux/store';
+
+//
+import './index.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +36,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <RouterProvider router={router} />
+
+        <ToastContainer />
       </Provider>
     </QueryClientProvider>
   </React.StrictMode>,

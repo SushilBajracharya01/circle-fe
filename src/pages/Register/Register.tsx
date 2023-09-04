@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -16,13 +16,18 @@ import registerSchema from "../../schemas/RegisterSchema";
 //
 import { IRegisterFormData } from "../../types";
 import { useMutationHook } from "../../hooks/react-query/useQueryHook";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+
+//
+import Avatar from "../../components/Avatar";
 
 
 /**
  * 
  */
 export default function RegisterPage() {
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -35,10 +40,26 @@ export default function RegisterPage() {
         queryRoute: '/users',
         axiosOptions: {
             multipart: true,
+        },
+        options: {
+            onSuccess: () => {
+                toast.success('User successfully registered. Please login.');
+                navigate('/');
+            }
         }
     })
 
+    const [previewUrl, setPreviewUrl] = useState<string | undefined>();
     const [profileImage, setProfileImage] = useState<FileList | null>(null);
+
+    useEffect(() => {
+        if (profileImage && profileImage[0]) {
+            setPreviewUrl(URL.createObjectURL(profileImage[0]));
+        }
+        else {
+            setPreviewUrl(undefined);
+        }
+    }, [profileImage])
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const onPhotoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -178,11 +199,9 @@ export default function RegisterPage() {
                                 </label>
                                 <div className="mt-1 sm:mt-0 sm:col-span-2">
                                     <div className="flex items-center">
-                                        <span className="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                                            <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
-                                            </svg>
-                                        </span>
+                                        <div className="flex justify-start items-center">
+                                            <Avatar url={previewUrl} />
+                                        </div>
                                         <input
                                             type="file"
                                             onChange={onPhotoChange}
@@ -196,6 +215,7 @@ export default function RegisterPage() {
                         <div className="mt-10">
                             <Button
                                 label="Submit"
+                                isLoading={isLoading}
                                 disabled={isLoading}
                             />
                         </div>

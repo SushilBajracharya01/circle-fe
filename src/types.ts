@@ -19,6 +19,7 @@ export interface IButtonProps {
     icon?: ReactElement;
     onClick?: () => void;
     disabled?: boolean;
+    isLoading?: boolean;
 }
 
 export interface IPasswordProps {
@@ -35,4 +36,11 @@ export interface IRegisterFormData {
     password: string;
     email: string;
     country: string;
+}
+
+export interface IAvatarProps {
+    url?: string;
+    size?: "sm" | "md" | "lg" | "4xl",
+    showStatus?: boolean;
+    isOnline?: boolean;
 }

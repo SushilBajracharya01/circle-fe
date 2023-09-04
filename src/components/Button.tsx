@@ -1,6 +1,7 @@
+import { VscLoading } from "react-icons/vsc";
 import { IButtonProps } from "../types";
 
-export default function Button({ varient = 'primary', label, type = "submit", onClick, icon, disabled }: IButtonProps) {
+export default function Button({ varient = 'primary', label, type = "submit", onClick, icon, disabled, isLoading }: IButtonProps) {
     let classes = 'inline-flex items-center px-4 py-2 border shadow-sm text-base font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-75 ';
     switch (varient) {
         case 'primary':
@@ -24,11 +25,15 @@ export default function Button({ varient = 'primary', label, type = "submit", on
             disabled={disabled}
         >
             {
-                icon &&
-                <span className="mr-2 block">{icon}</span>
-            }
+                isLoading ? <VscLoading className="spin" /> : <>
+                    {
+                        icon &&
+                        <span className="mr-2 block">{icon}</span>
+                    }
 
-            {label}
+                    {label}
+                </>
+            }
         </button>
     )
 }
