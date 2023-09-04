@@ -64,9 +64,14 @@ export const useMutationHook = ({
 				response = await Axios.post(`${queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : '')
 					}`, data, axiosOptions);
 			}
+			else if (method === "patch") {
+				response = await Axios.patch(`${queryRoute}`, data, axiosOptions);
+			}
+			else if (method === "delete") {
+				response = await Axios.delete(`${queryRoute}`, axiosOptions);
+			}
 
-			console.log(response, 'response')
-			// return response.data.data || response;
+			return response ? response.data : response;
 		},
 		...options,
 	});
