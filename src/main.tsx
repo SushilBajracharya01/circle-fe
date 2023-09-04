@@ -17,10 +17,10 @@ import { store } from './_redux/store';
 //
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
-import PersistLoginWrapper from './pages/persistLogin/PersistLoginWrapper';
 import Feed from './pages/Feed';
-import RequireAuth from './pages/requireAuth/RequireAuthWrapper';
 import { ROLES } from './constants/constants';
+import PersistLoginWrapper from './components/persistLogin/PersistLoginWrapper';
+import RequireAuth from './components/requireAuth/RequireAuthWrapper';
 
 const router = createBrowserRouter([
   {
