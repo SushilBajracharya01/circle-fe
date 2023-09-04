@@ -54,3 +54,12 @@ export interface IAuthOptionsProps {
     multipart?: boolean;
     refreshToken?: string;
 }
+
+export interface ISideMenuProps {
+    showMenu: boolean;
+}
+
+export interface IAuthHeaderProps {
+    showMenu: boolean;
+    handleToggleMenu: () => void;
+}

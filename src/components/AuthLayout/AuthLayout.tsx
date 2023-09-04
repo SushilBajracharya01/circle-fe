@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 //
-import SideMenu from "../@AuthLayout/SideMenu/SideMenu";
-import AuthHeader from "../@AuthLayout/AuthHeader/AuthHeader";
+import SideMenu from "../@AuthLayout/SideMenu";
+import AuthHeader from "../@AuthLayout/AuthHeader";
 
 /**
  * 
@@ -19,7 +19,7 @@ export default function AuthLayout() {
 
     const handleToggleMenu = () => {
         setShowMenu((prev) => {
-            let newState = !prev;
+            const newState = !prev;
             localStorage.setItem('showSideMenu', String(newState));
             return newState;
         });
