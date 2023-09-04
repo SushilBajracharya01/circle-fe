@@ -19,6 +19,8 @@ export default function PersistLoginWrapper() {
     const [refreshToken, setRefreshToken] = useState<undefined | string>();
 
     const handleRefreshSuccess = () => {
+        // need to set access token here
+        
         setTrueSuccess(true)
     }
     const handleRefreshError = () => {
@@ -61,7 +63,7 @@ export default function PersistLoginWrapper() {
 
     let content = null;
 
-    console.log(persist, 'persist', token, 'token', isLoading, 'isLoading')
+    console.log(persist, 'persist', token, 'token', isLoading, 'isLoading', isError)
     if (!persist) {
         console.log("No persist");
         content = <Outlet />;

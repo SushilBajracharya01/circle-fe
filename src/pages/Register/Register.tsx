@@ -220,7 +220,7 @@ export default function RegisterPage() {
                         </div>
 
                         <div className="mt-4 text-gray-700">
-                            Already have an account? <Link to="/" className="ml-2 font-bold text-blue-600">Sign in</Link>
+                            Already have an account? <Link to="/login" className="ml-2 font-bold text-blue-600">Sign in</Link>
                         </div>
 
                     </div>

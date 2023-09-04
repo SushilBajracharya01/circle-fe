@@ -19,10 +19,12 @@ import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
 import PersistLoginWrapper from './pages/persistLogin/PersistLoginWrapper';
 import Feed from './pages/Feed';
+import RequireAuth from './pages/requireAuth/RequireAuthWrapper';
+import { ROLES } from './constants/constants';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/login",
     element: <LoginPage />,
   },
   {
@@ -32,11 +34,16 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <PersistLoginWrapper />,
-    children: [
-      {
-        path: 'feed',
-        element: <Feed />
-      }
+    children: [{
+      path: '',
+      element: <RequireAuth allowedRoles={ROLES} />,
+      children: [
+        {
+          path: 'feed',
+          element: <Feed />
+        }
+      ]
+    }
     ]
   },
 ]);

@@ -17,7 +17,7 @@ export default function useAuth() {
 
         if (isAdmin) status = "Admin";
 
-        return { email: email, role: role, isAdmin, status }
+        return { email, role, isAdmin, status, token }
     }
 
     return { email: '', role: "", isAdmin, status }

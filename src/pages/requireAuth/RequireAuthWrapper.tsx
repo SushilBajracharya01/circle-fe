@@ -1,13 +1,16 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import AuthLayout from "../../components/AuthLayout";
 
 function RequireAuth({ allowedRoles }: IRequireAuthProps) {
     const location = useLocation();
-    const { role } = useAuth();
+    const { token, role } = useAuth();
+
+    if (!token) {
+        return <Navigate to="/login" state={{ from: location }} replace />
+    }
 
     const content = allowedRoles.includes(role) ? (
-        <AuthLayout />
+        <Outlet />
     ) : (
         <Navigate to="/" state={{ from: location }} replace />
     );
@@ -17,7 +20,7 @@ function RequireAuth({ allowedRoles }: IRequireAuthProps) {
 
 export default RequireAuth;
 
-export type allowedRolesType = 'Admin' | 'User' ;
+export type allowedRolesType = 'Admin' | 'User';
 
 interface IRequireAuthProps {
     allowedRoles: allowedRolesType[]
