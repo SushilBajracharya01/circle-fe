@@ -10,11 +10,12 @@ import { ILoginFormProps } from "../../types";
 import { toast } from "react-toastify";
 import { useAppDispatch } from "../../_redux/redux";
 import { handleSetCredentials } from "../../_redux/authSlice";
+import usePersist from "../../hooks/usePersist";
 
 function LoginPage() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-
+    const [persist, setPersist] = usePersist();
     const {
         register,
         handleSubmit,
@@ -36,6 +37,7 @@ function LoginPage() {
             }
         }
     })
+    const handleToggle = () => typeof setPersist !== "boolean" && setPersist((prev: boolean) => !prev);
 
     const onSubmit = (data: ILoginFormProps) => {
         mutate(data)
@@ -73,6 +75,8 @@ function LoginPage() {
                                     id="remember-me"
                                     name="remember-me"
                                     type="checkbox"
+                                    onChange={handleToggle}
+                                    checked={typeof persist === "boolean" ? persist : false}
                                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                                 />
                                 <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
