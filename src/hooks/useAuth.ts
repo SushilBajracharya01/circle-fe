@@ -21,13 +21,13 @@ export default function useAuth() {
     if (token) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const decoded: any = jwtDecode(token);
-        const { email, role } = decoded.UserInfo;
+        const { _id, email, role } = decoded.UserInfo;
 
         isAdmin = role === 'Admin';
 
         if (isAdmin) status = "Admin";
 
-        return { email, role, isAdmin, status, token }
+        return { _id, email, role, isAdmin, status, token }
     }
 
     return { email: '', role: "", isAdmin, status }
