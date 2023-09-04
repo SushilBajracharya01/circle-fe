@@ -17,6 +17,8 @@ import { store } from './_redux/store';
 //
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
+import PersistLoginWrapper from './pages/persistLogin/PersistLoginWrapper';
+import Feed from './pages/Feed';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,16 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/",
+    element: <PersistLoginWrapper />,
+    children: [
+      {
+        path: 'feed',
+        element: <Feed />
+      }
+    ]
   },
 ]);
 
