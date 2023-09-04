@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { Axios } from '../../apis/configs/axiosConfig';
-import { IAuthOptionsProps, authHeader } from '../../_helpers/auth-header';
 import { useMutation, useQuery } from 'react-query';
+import { IAuthOptionsProps } from '../../types';
 
 interface IQueryOptions {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,11 +21,11 @@ interface IQueryHook {
 	axiosOptions?: IAuthOptionsProps;
 }
 
-export const useQueryHook = ({ queryName, queryRoute, params = [], options = {}, axiosOptions }: IQueryHook) => {
+export const useQueryHook = ({ queryName, queryRoute, params = [], options = {} }: IQueryHook) => {
 	const requestService = async () => {
 		try {
 			const queryParams = params.map((p) => p.join('='));
-			const response = await Axios(axiosOptions).get(queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : ''));
+			const response = await Axios.get(queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : ''));
 			return response?.data || {};
 		} catch (error) {
 			console.log(error);
@@ -55,26 +54,19 @@ export const useMutationHook = ({
 	params = [],
 	options = {},
 	axiosOptions = {},
-	env = null,
 }: IMutationHook) => {
 	const queryParams = params.map((p) => p.join('='));
 	return useMutation({
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		mutationFn: async (data: { [key: string]: any }) => {
-			const baseUri = import.meta.env.VITE_BACKEND_API;
-			const envUri = env && import.meta.env[env];
-			console.log(baseUri, 'baseUri')
-			const uri = env ? envUri : baseUri;
-			const response = await axios({
-				method: method,
-				url: `${uri}${queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : '')
-					}`,
-				headers: {
-					...authHeader({ multipart: axiosOptions.multipart }),
-				},
-				data: data,
-			});
-			return response.data.data || response;
+			let response = null;
+			if (method === "post") {
+				response = await Axios.post(`${queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : '')
+					}`, data, axiosOptions);
+			}
+
+			console.log(response, 'response')
+			// return response.data.data || response;
 		},
 		...options,
 	});

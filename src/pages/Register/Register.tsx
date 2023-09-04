@@ -148,7 +148,6 @@ export default function RegisterPage() {
                                         <Input
                                             name="email"
                                             isRequired
-                                            type="email"
                                             register={register}
                                             errors={errors}
                                             disabled={isLoading}

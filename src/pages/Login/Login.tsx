@@ -1,8 +1,39 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Input from "../../components/Input"
 import Logo from "../../components/Logo"
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+import loginSchema from "../../schemas/loginSchema";
+import { useMutationHook } from "../../hooks/react-query/useQueryHook";
+import Button from "../../components/Button";
+import { ILoginFormProps } from "../../types";
+import { toast } from "react-toastify";
 
 function LoginPage() {
+    const navigate = useNavigate();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({
+        resolver: yupResolver(loginSchema),
+    });
+
+    const { mutate, isLoading } = useMutationHook({
+        queryRoute: '/auth',
+        options: {
+            onSuccess: () => {
+                navigate('/feed');
+            },
+            onError: (err) => {
+                toast.error(err.message);
+            }
+        }
+    })
+
+    const onSubmit = (data: ILoginFormProps) => {
+        mutate(data)
+    }
     return (
         <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -12,19 +43,22 @@ function LoginPage() {
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                         <Input
                             label="Email address"
-                            type="email"
                             name="email"
-                            isRequired
+                            register={register}
+                            errors={errors}
+                            disabled={isLoading}
                         />
 
                         <Input
                             label="Password"
                             type="password"
                             name="password"
-                            isRequired
+                            register={register}
+                            errors={errors}
+                            disabled={isLoading}
                         />
 
                         <div className="flex items-center justify-between">
@@ -47,13 +81,12 @@ function LoginPage() {
                             </div>
                         </div>
 
-                        <div>
-                            <button
-                                type="submit"
-                                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                                Sign in
-                            </button>
+                        <div className="flex justify-center">
+                            <Button
+                                label="Sign in"
+                                isLoading={isLoading}
+                                disabled={isLoading}
+                            />
                         </div>
                     </form>
 

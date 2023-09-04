@@ -25,7 +25,7 @@ export default function Button({ varient = 'primary', label, type = "submit", on
             disabled={disabled}
         >
             {
-                isLoading ? <VscLoading className="spin" /> : <>
+                isLoading ? <VscLoading className="animate-spin" /> : <>
                     {
                         icon &&
                         <span className="mr-2 block">{icon}</span>

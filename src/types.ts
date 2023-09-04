@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 export interface IInputProps {
     label?: string;
     name: string;
-    type?: 'email' | 'text' | 'number' | 'password';
+    type?: 'text' | 'number' | 'password';
     isRequired?: boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register?: any;
@@ -43,4 +43,14 @@ export interface IAvatarProps {
     size?: "sm" | "md" | "lg" | "4xl",
     showStatus?: boolean;
     isOnline?: boolean;
+}
+
+export interface ILoginFormProps {
+    email: string;
+    password: string;
+}
+
+export interface IAuthOptionsProps {
+    multipart?: boolean;
+    refreshToken?: string;
 }
