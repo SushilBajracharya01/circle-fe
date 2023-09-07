@@ -9,6 +9,7 @@ interface IQueryOptions {
 	onError?: (error: any) => void;
 	refetchInterval?: number;
 	enabled?: boolean;
+	staleTime?: number;
 }
 
 type paramType = [string, string | number | boolean] | string[];

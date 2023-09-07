@@ -43,6 +43,7 @@ export interface IAvatarProps {
     size?: "sm" | "md" | "lg" | "4xl",
     showStatus?: boolean;
     isOnline?: boolean;
+    isCloudinary?: boolean;
 }
 
 export interface ILoginFormProps {
@@ -81,4 +82,35 @@ export interface INavButtonProps {
     label: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     icon: any;
+}
+
+export interface IUserProps {
+    active: boolean;
+    country: string;
+    createdAt: string;
+    email: string;
+    fullname: string;
+    role: string;
+    updatedAt: string;
+    username: string;
+    _id: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    photo?: any;
+}
+
+export interface ISidebarItemProps {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    icon: any;
+    title: string;
+    href: string;
+}
+
+export interface ISidebarProps {
+    user: IUserProps | null;
+}
+
+export interface ICloudinaryImgProps {
+    publicId: string;
+    width: number;
+    height: number;
 }
