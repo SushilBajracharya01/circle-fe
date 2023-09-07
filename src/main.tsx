@@ -1,4 +1,3 @@
-import React from 'react'
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client'
 import { ToastContainer } from 'react-toastify';
@@ -54,16 +53,19 @@ const router = createBrowserRouter([
   },
 ]);
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { refetchOnWindowFocus: false },
+  },
+});
+
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <RouterProvider router={router} />
+  <QueryClientProvider client={queryClient}>
+    <Provider store={store}>
+      <RouterProvider router={router} />
 
-        <ToastContainer />
-      </Provider>
-    </QueryClientProvider>
-  </React.StrictMode>,
+      <ToastContainer />
+    </Provider>
+  </QueryClientProvider>
 )
