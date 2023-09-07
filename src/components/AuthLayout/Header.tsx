@@ -8,6 +8,7 @@ import { BiSolidChevronDown } from 'react-icons/bi';
 import DropDownButton from "./@Header/DropDownButton";
 import { VscSettingsGear } from "react-icons/vsc";
 import { FiLogOut } from "react-icons/fi";
+import { AiFillHome } from "react-icons/ai";
 import { MdGroups } from "react-icons/md";
 
 import { useAppDispatch } from "../../_redux/redux";
@@ -36,7 +37,7 @@ export default function Header() {
                 <div className="flex justify-start lg:w-0 lg:flex-1">
                     <Link to="/">
                         <span className="sr-only">Circle</span>
-                        <Logo noText horizontal />
+                        <Logo horizontal />
                     </Link>
                 </div>
 
@@ -49,9 +50,14 @@ export default function Header() {
                 </div>
 
                 {/* desktop center */}
-                <nav className="hidden md:flex justify-center items-center">
+                <nav className="hidden md:flex justify-center items-center gap-2">
                     <NavButton
                         to={"/"}
+                        label={'Home'}
+                        icon={<AiFillHome fontSize="22" />}
+                    />
+                    <NavButton
+                        to={"/circle"}
                         label={'Circle'}
                         icon={<MdGroups fontSize="22" />}
                     />
