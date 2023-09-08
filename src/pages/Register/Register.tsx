@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 //
-import Avatar from "../../components/Avatar";
+import PhotoInput from "../../components/PhotoInput/PhotoInput";
 
 
 /**
@@ -197,16 +197,10 @@ export default function RegisterPage() {
                                     Photo
                                 </label>
                                 <div className="mt-1 sm:mt-0 sm:col-span-2">
-                                    <div className="flex items-center">
-                                        <div className="flex justify-start items-center">
-                                            <Avatar url={previewUrl} />
-                                        </div>
-                                        <input
-                                            type="file"
-                                            onChange={onPhotoChange}
-                                            className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                        />
-                                    </div>
+                                    <PhotoInput
+                                        previewUrl={previewUrl}
+                                        onPhotoChange={onPhotoChange}
+                                    />
                                 </div>
                             </div>
                         </div>
