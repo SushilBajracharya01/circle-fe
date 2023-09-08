@@ -16,7 +16,7 @@ import { store } from './_redux/store';
 //
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
-import Feed from './pages/Feed';
+import Home from './pages/Home';
 import { ROLES } from './constants/constants';
 import PersistLoginWrapper from './components/persistLogin/PersistLoginWrapper';
 import RequireAuth from './components/requireAuth/RequireAuthWrapper';
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       children: [
         {
           path: '',
-          element: <Feed />
+          element: <Home />
         }
       ]
     }
