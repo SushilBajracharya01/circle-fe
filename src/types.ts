@@ -1,9 +1,9 @@
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 
 export interface IInputProps {
     label?: string;
     name: string;
-    type?: 'text' | 'number' | 'password';
+    type?: 'text' | 'number' | 'password' | 'textarea';
     isRequired?: boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register?: any;
@@ -40,7 +40,7 @@ export interface IRegisterFormData {
 
 export interface IAvatarProps {
     url?: string;
-    size?: "sm" | "md" | "lg" | "4xl",
+    size?: "sm" | "md" | "lg" | "xl" | "4xl",
     showStatus?: boolean;
     isOnline?: boolean;
     isCloudinary?: boolean;
@@ -113,4 +113,37 @@ export interface ICloudinaryImgProps {
     publicId: string;
     width: number;
     height: number;
+}
+
+export interface IMainFeedProps {
+    children: ReactNode;
+}
+
+export interface ICircle {
+    createdAt: string;
+    createdBy: string;
+    members: string[];
+    description: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    photo: any;
+    moto: string;
+    name: string;
+    _id: string;
+}
+export interface ICircleProps {
+    circle: ICircle;
+}
+export interface ICircleFormData {
+    name: string;
+    description: string;
+    moto?: string;
+}
+
+export interface IPhotoInputProps {
+    previewUrl?: string;
+    onPhotoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface ICircleFormProps {
+    handleHideForm: () => void
 }

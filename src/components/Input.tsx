@@ -9,6 +9,21 @@ export default function Input({ label, name, type, isRequired, register, errors 
         case 'password':
             element = <Password name={name} isRequired={isRequired} register={register} />
             break;
+        case 'textarea':
+            element = <div className="mt-1">
+                <textarea
+                    rows={5}
+                    id={name}
+                    name={name}
+                    type={type}
+                    {
+                    ...(register ? register(name) : {})
+                    }
+                    // required={isRequired}
+                    className="circle_input"
+                />
+            </div>
+            break;
         default:
             element = <div className="mt-1">
                 <input
