@@ -54,7 +54,7 @@ export default function GridPhotoPreviewer({ previews = [], isCloudinary = true 
     }
 
     return (
-        <div>
+        <div className="mt-2">
             <div className="mb-0.5">
                 {
                     isCloudinary ?

@@ -25,7 +25,7 @@ export default function PostItem({ post }: IPostItemProps) {
             </div>
 
             <div className="mt-2">
-                <div>
+                <div className="whitespace-pre">
                     {post.content}
                 </div>
 

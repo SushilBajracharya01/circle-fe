@@ -197,5 +197,5 @@ export interface IPhotoUploaderProps {
 export interface IGridPhotoPreviewerProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     previews: any;
-    isCloudinary: boolean;
+    isCloudinary?: boolean;
 }
