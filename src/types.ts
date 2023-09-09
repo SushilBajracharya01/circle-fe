@@ -10,6 +10,7 @@ export interface IInputProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     errors?: any;
     disabled?: boolean;
+    className?: string;
 }
 
 export interface IButtonProps {
@@ -142,8 +143,15 @@ export interface ICircleFormData {
 export interface IPhotoInputProps {
     previewUrl?: string;
     onPhotoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    className?: string;
 }
 
 export interface ICircleFormProps {
     handleHideForm: () => void
+}
+
+export interface IColumnLayoutProps {
+    leftComponent: ReactNode;
+    centerComponent: ReactNode;
+    rightComponent: ReactNode;
 }

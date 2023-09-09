@@ -1,7 +1,7 @@
 import { IInputProps } from "../types"
 import Password from "./Password";
 
-export default function Input({ label, name, type, isRequired, register, errors }: IInputProps) {
+export default function Input({ label, name, type, isRequired, register, errors, className }: IInputProps) {
 
     let element = null;
 
@@ -39,7 +39,7 @@ export default function Input({ label, name, type, isRequired, register, errors 
             </div>
     }
     return (
-        <div>
+        <div className={`${className}`}>
             {
                 label &&
                 <label htmlFor={name} className="block text-sm font-medium text-gray-700">
