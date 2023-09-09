@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../_redux/redux";
 import Sidebar from "../../components/@Feed/MainFeed/Sidebar";
 import ColumnLayout from "../../layout/ColumnLayout";
+import CircleMain from "../../components/@Circle/CircleMain";
 
 /**
  * 
@@ -16,9 +17,13 @@ export default function CirclePage() {
                 <Sidebar user={user} />
             }
             centerComponent={
-                <div>
-                    Circle {id}
-                </div>
+                <>
+                    {id ?
+                        <CircleMain circleId={id} />
+                        :
+                        <div>Error</div>
+                    }
+                </>
             }
             rightComponent={
                 <div>Sidebar</div>

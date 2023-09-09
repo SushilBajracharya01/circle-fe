@@ -155,3 +155,32 @@ export interface IColumnLayoutProps {
     centerComponent: ReactNode;
     rightComponent: ReactNode;
 }
+
+export interface ICircleMainProps {
+    circleId: string;
+}
+export interface ICreatedBy {
+    _id: string;
+    username: string;
+    fullname: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    photo: any;
+}
+export interface IPost {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    photos: any,
+    _id: string,
+    circleId: string,
+    content: string,
+    createdBy: ICreatedBy,
+    createdAt: string,
+    updatedAt: string,
+}
+export interface IPostItemProps {
+    post: IPost;
+}
+
+export interface IPostInputProps {
+    user: IUserProps;
+    circleId: string;
+}
