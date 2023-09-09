@@ -1,22 +1,31 @@
-import { Dialog } from "@headlessui/react"
-import { IPostInputProps } from "../../types"
-import Avatar from "../Avatar"
-import { useEffect, useState } from "react"
-import { AiFillCloseCircle } from "react-icons/ai"
-import Input from "../Input"
-import Button from "../Button"
-import { yupResolver } from "@hookform/resolvers/yup"
+import { toast } from "react-toastify"
 import { useForm } from "react-hook-form"
+import { Dialog } from "@headlessui/react"
+import { useEffect, useState } from "react"
+import { useQueryClient } from "react-query"
+import { yupResolver } from "@hookform/resolvers/yup"
+
+//
+import Input from "../Input"
+import Avatar from "../Avatar"
+import Button from "../Button"
+import { IPostInputProps } from "../../types"
 import { postSchema } from "../../schemas/Schemas"
 import { useMutationHook } from "../../hooks/react-query/useQueryHook"
-import { toast } from "react-toastify"
+
+//
 import { BiSolidImage } from "react-icons/bi"
+import { AiFillCloseCircle } from "react-icons/ai"
+
+//
 import PhotoUploader from "../PhotoUploader/PhotoUploader"
 
 /**
  * 
  */
 export default function PostInput({ user, circleId }: IPostInputProps) {
+  const queryClient = useQueryClient();
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [showFileUpload, setShowFileUpload] = useState<boolean>(false);
   const [previewUrls, setPreviewUrls] = useState<string[] | undefined>();
@@ -42,7 +51,9 @@ export default function PostInput({ user, circleId }: IPostInputProps) {
   const handleShowModal = () => setIsOpen(true);
   const handleHideModal = () => {
     reset();
-    setIsOpen(false)
+    setIsOpen(false);
+    setPreviewUrls(undefined);
+    setPostImages(null);
   };
 
   const {
@@ -62,8 +73,8 @@ export default function PostInput({ user, circleId }: IPostInputProps) {
     options: {
       onSuccess: () => {
         toast.success('Circle created successfully.');
-        reset();
-        handleHideModal()
+        queryClient.invalidateQueries({ queryKey: [`circle post ${circleId}`] });
+        handleHideModal();
       }
     }
   });
@@ -103,7 +114,7 @@ export default function PostInput({ user, circleId }: IPostInputProps) {
 
       <Dialog
         open={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={handleHideModal}
         className="relative z-50"
       >
         <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
@@ -146,7 +157,7 @@ export default function PostInput({ user, circleId }: IPostInputProps) {
                       <div className="mt-2 border border-gray-200 rounded-md p-2 relative">
                         <AiFillCloseCircle fontSize="30" className="cursor-pointer absolute top-2 right-2 z-10 text-gray-700" onClick={() => setShowFileUpload(false)} />
 
-                        <PhotoUploader handleChange={handleChange} previewUrls={previewUrls} isMulti />
+                        <PhotoUploader handleChange={handleChange} previewUrls={previewUrls} isMulti={false} />
                       </div>
                     }
 
@@ -168,6 +179,7 @@ export default function PostInput({ user, circleId }: IPostInputProps) {
                       className="w-full justify-center"
                       label="Post"
                       disabled={isLoading}
+                      isLoading={isLoading}
                     />
                   </div>
                 </form>
