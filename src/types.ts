@@ -113,9 +113,10 @@ export interface ISidebarProps {
 }
 
 export interface ICloudinaryImgProps {
+    className?: string;
     publicId: string;
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
 }
 
 export interface IMainFeedProps {
@@ -191,4 +192,9 @@ export interface IPhotoUploaderProps {
     isMulti?: boolean;
     handleChange: (e: React.ChangeEvent<HTMLInputElement> | undefined) => void;
     previewUrls: string[] | undefined;
+}
+
+export interface IGridPhotoPreviewerProps {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    previews: any
 }
