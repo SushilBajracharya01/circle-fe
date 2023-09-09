@@ -31,7 +31,7 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
     });
 
     const { mutate, isLoading } = useMutationHook({
-        queryRoute: '/circle',
+        queryRoute: '/circles',
         axiosOptions: {
             multipart: true,
         },

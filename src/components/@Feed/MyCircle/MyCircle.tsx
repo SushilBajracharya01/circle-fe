@@ -19,7 +19,7 @@ export default function MyCircle() {
     const [showForm, setShowForm] = useState<boolean>(false);
     const { data, isLoading } = useQueryHook({
         queryName: 'my-circle',
-        queryRoute: `/circle`,
+        queryRoute: `/circles`,
     });
 
     const handleShowForm = () => setShowForm(true);
