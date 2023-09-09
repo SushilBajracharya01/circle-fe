@@ -21,6 +21,7 @@ import { ROLES } from './constants/constants';
 import PersistLoginWrapper from './components/persistLogin/PersistLoginWrapper';
 import RequireAuth from './components/requireAuth/RequireAuthWrapper';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
+import CirclePage from './pages/Circle';
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,11 @@ const router = createBrowserRouter([
         {
           path: '',
           element: <Home />
-        }
+        },
+        {
+          path: "circle/:id",
+          element: <CirclePage />,
+        },
       ]
     }
     ]

@@ -1,9 +1,9 @@
 import { IPhotoInputProps } from "../../types";
 import Avatar from "../Avatar";
 
-export default function PhotoInput({ previewUrl, onPhotoChange }: IPhotoInputProps) {
+export default function PhotoInput({ previewUrl, onPhotoChange, className }: IPhotoInputProps) {
     return (
-        <div className="flex items-center">
+        <div className={`flex items-center ${className}`}>
             <div className="flex justify-start items-center">
                 <Avatar url={previewUrl} />
             </div>
