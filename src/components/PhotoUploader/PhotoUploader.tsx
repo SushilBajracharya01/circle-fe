@@ -1,5 +1,9 @@
 import { IPhotoUploaderProps } from "../../types";
+import GridPhotoPreviewer from "../GridPhotoPreviewer";
 
+/**
+ * 
+ */
 export default function PhotoUploader({ isMulti, handleChange, previewUrls }: IPhotoUploaderProps) {
     return (
         <>
@@ -35,11 +39,7 @@ export default function PhotoUploader({ isMulti, handleChange, previewUrls }: IP
             </div>
 
             <div className="mt-2 rounded-md overflow-hidden">
-                {
-                    previewUrls?.map(url => (
-                        <img src={url} key={url} className="w-full h-[300px] object-cover" />
-                    ))
-                }
+                <GridPhotoPreviewer previews={previewUrls} isCloudinary={false} />
             </div>
         </>
     )
