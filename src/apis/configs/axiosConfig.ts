@@ -29,15 +29,16 @@ Axios.interceptors.response.use((response) => response, async function (error: a
 
 			try {
 				const refreshToken = jsCookie.get(LOCAL_REFRESH_TOKEN_NAME);
-				const response = await axios.get(`${import.meta.env.VITE_BACKEND_API}/auth/refresh`, {
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				const response: any = await axios.get(`${import.meta.env.VITE_BACKEND_API}/auth/refresh`, {
 					headers: {
 						Authorization: `Bearer ${refreshToken}`
 					}
 				});
-
-				const { accessToken } = response.data.body;
+				const { accessToken } = response.data;
 
 				localStorage.setItem(LOCAL_ACCESS_TOKEN_NAME, accessToken);
+
 				return Axios(originalRequest);
 			}
 			catch (err) {
