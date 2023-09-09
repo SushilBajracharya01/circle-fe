@@ -1,8 +1,9 @@
+import { BiImage } from "react-icons/bi";
 import AvatarSvg from "../../assets/Avatar";
 import { IAvatarProps } from "../../types";
 import CloudinaryImg from "../CloudinaryImg";
 
-export default function Avatar({ url, size = 'md', showStatus, isOnline, isCloudinary }: IAvatarProps) {
+export default function Avatar({ url, size = 'md', showStatus, isOnline, isCloudinary, isPeople = true }: IAvatarProps) {
     let classes = '';
     let sizes = { width: 40, height: 40 }
     switch (size) {
@@ -30,7 +31,7 @@ export default function Avatar({ url, size = 'md', showStatus, isOnline, isCloud
     }
     return (
         <span className="inline-block relative">
-            <span className={`${classes} block bg-gray-100 rounded-full overflow-hidden border-4 border-gray-300`}>
+            <span className={`${classes} bg-gray-100 rounded-full overflow-hidden border-4 border-gray-300 flex justify-center items-center`}>
                 {
                     url ?
                         <>
@@ -41,7 +42,14 @@ export default function Avatar({ url, size = 'md', showStatus, isOnline, isCloud
                             }
                         </>
                         :
-                        <AvatarSvg />
+                        <>
+                            {
+                                isPeople ?
+                                    <AvatarSvg />
+                                    :
+                                    <BiImage className={`${classes} scale-75 text-gray-500`} />
+                            }
+                        </>
                 }
             </span>
             {

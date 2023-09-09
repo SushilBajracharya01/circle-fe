@@ -45,6 +45,7 @@ export interface IAvatarProps {
     size?: "sm" | "md" | "lg" | "xl" | "4xl",
     showStatus?: boolean;
     isOnline?: boolean;
+    isPeople?: boolean;
     isCloudinary?: boolean;
 }
 
