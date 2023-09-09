@@ -31,7 +31,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
                         :
                         <div className="bg-blue-600 p-3 mb-3 text-white rounded-md">
                             <div className="flex items-center gap-4">
-                                <Avatar isCloudinary url={circle?.result?.photo} size="lg" />
+                                <Avatar isCloudinary url={circle?.result?.photo?.public_id} size="lg" />
 
                                 <div>
                                     <h2 className="text-3xl font-semibold">

@@ -16,11 +16,12 @@ export interface IInputProps {
 export interface IButtonProps {
     varient?: 'success' | 'outline-success' | 'primary' | 'outline-primary' | 'secondary' | 'outline-secondary';
     type?: 'button' | 'submit';
-    label: string;
+    label?: string;
     icon?: ReactElement;
     onClick?: () => void;
     disabled?: boolean;
     isLoading?: boolean;
+    className?: string;
 }
 
 export interface IPasswordProps {
@@ -183,4 +184,10 @@ export interface IPostItemProps {
 export interface IPostInputProps {
     user: IUserProps;
     circleId: string;
+}
+
+export interface IPhotoUploaderProps {
+    isMulti?: boolean;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement> | undefined) => void;
+    previewUrls: string[] | undefined;
 }

@@ -8,4 +8,8 @@ const circleSchema = yup
     })
     .required()
 
-export { circleSchema };
+const postSchema = yup.object({
+    content: yup.string().required()
+}).required();
+
+export { circleSchema, postSchema };
