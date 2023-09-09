@@ -63,15 +63,21 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
 
     return (
         <div>
-            <Button
-                label="X"
-                onClick={handleHideForm}
-            />
+            <div className="flex justify-between items-center mb-5">
+                <h2 className="text-2xl font-bold">New Circles</h2>
+
+                <Button
+                    label="X"
+                    onClick={handleHideForm}
+                />
+            </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <PhotoInput
                     previewUrl={previewUrl}
                     onPhotoChange={onPhotoChange}
+                    className="mb-5"
                 />
+
                 <Input
                     label="Name"
                     name="name"
@@ -80,7 +86,9 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
                     errors={errors}
                     isRequired
                     type="text"
+                    className="mb-5"
                 />
+
                 <Input
                     label="Moto"
                     name="moto"
@@ -89,7 +97,9 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
                     errors={errors}
                     isRequired
                     type="text"
+                    className="mb-5"
                 />
+                
                 <Input
                     label="Description"
                     name="description"
@@ -98,6 +108,7 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
                     errors={errors}
                     isRequired
                     type="textarea"
+                    className="mb-5"
                 />
 
                 <Button
