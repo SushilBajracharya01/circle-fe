@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
 
 export interface IInputProps {
     label?: string;
@@ -104,7 +104,7 @@ export interface IUserProps {
 export interface ISidebarItemProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     icon: any;
-    title: string;
+    title?: string;
     href: string;
 }
 
@@ -198,4 +198,19 @@ export interface IGridPhotoPreviewerProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     previews: any;
     isCloudinary?: boolean;
+}
+
+export interface IMenuItemProps {
+    title: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    icon: any;
+    onClick: () => void;
+}
+
+export interface IPostModalProps {
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    user: IUserProps;
+    circleId: string;
+    post?: IPost;
 }
