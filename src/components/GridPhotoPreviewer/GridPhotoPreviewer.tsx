@@ -66,7 +66,7 @@ export default function GridPhotoPreviewer({ previews = [], isCloudinary = true 
             <div className={`grid gap-0.5 ${className}`}>
                 {
                     secondRowImages.map((image: string, index: number) => (
-                        <div className={'w-full relative'}>
+                        <div className={'w-full relative'} key={image}>
                             {
                                 isCloudinary ?
                                     <CloudinaryImg publicId={image} width={400} height={200} className="h-full w-full object-cover" />
