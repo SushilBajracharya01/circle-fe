@@ -1,20 +1,23 @@
 import dayjs from 'dayjs';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useQueryClient } from 'react-query';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Menu, Transition } from "@headlessui/react";
+import { useMutationHook } from '../../hooks/react-query/useQueryHook';
 
 //
 import Avatar from "../Avatar";
+import PostModal from '../PostModal';
 import GridPhotoPreviewer from "../GridPhotoPreviewer";
 
 //
+import { useAppSelector } from '../../_redux/redux';
 import { IMenuItemProps, IPostItemProps } from "../../types";
 
 //
 import { BsThreeDots } from 'react-icons/bs';
-import { BiPencil } from 'react-icons/bi';
-import { useState } from 'react';
-import PostModal from '../PostModal';
-import { useAppSelector } from '../../_redux/redux';
+import { BiPencil, BiTrash } from 'react-icons/bi';
 
 dayjs.extend(relativeTime)
 
@@ -22,10 +25,26 @@ dayjs.extend(relativeTime)
  * 
  */
 export default function PostItem({ post }: IPostItemProps) {
+    const queryClient = useQueryClient();
     const user = useAppSelector(state => state.user.user);
     const [openEditModal, setOpenEditModal] = useState<boolean>(false);
 
     const handleShowModal = () => setOpenEditModal(true);
+
+    const { mutate } = useMutationHook({
+        queryRoute: `/posts/${post._id}`,
+        method: 'delete',
+        options: {
+            onSuccess: () => {
+                toast.success('Deleted post successfully!');
+                queryClient.invalidateQueries([`circle post ${post.circleId}`])
+            }
+        }
+    })
+
+    const handleDelete = () => {
+        mutate({});
+    }
 
     return (
         <div className="rounded bg-gray-100 px-3 py-4 mb-5">
@@ -53,13 +72,18 @@ export default function PostItem({ post }: IPostItemProps) {
                         leave="transition duration-75 ease-out"
                         leaveFrom="transform scale-100 opacity-100"
                         leaveTo="transform scale-95 opacity-0"
-                        className="absolute bg-white rounded-md p-2 top-8 right-5 shadow-md"
+                        className="absolute bg-white rounded-md p-2 top-8 right-5 shadow-md z-10"
                     >
                         <Menu.Items className="flex flex-col">
                             <MenuItem
                                 title="Edit post"
                                 icon={<BiPencil />}
                                 onClick={handleShowModal} />
+
+                            <MenuItem
+                                title="Delete"
+                                icon={<BiTrash />}
+                                onClick={handleDelete} />
                         </Menu.Items>
                     </Transition>
                 </Menu>
@@ -92,7 +116,7 @@ const MenuItem = ({ title, icon, onClick }: IMenuItemProps) => {
         <Menu.Item>
             {({ active }) => (
                 <div
-                    className={`cursor-pointer py-1 px-2 flex items-center transition-colors rounded ${active && 'bg-blue-500 text-white'}`}
+                    className={`z-10 cursor-pointer py-1 px-2 flex items-center transition-colors rounded ${active && 'bg-blue-500 text-white'}`}
                     onClick={onClick}
                 >
                     {icon}
