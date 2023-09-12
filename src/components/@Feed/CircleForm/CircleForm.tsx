@@ -49,7 +49,7 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
         formData.append('description', data.description);
 
         if (profileImage) {
-            formData.append('photo', profileImage[0])
+            formData.append('photo', profileImage[0]);
         }
         mutate(formData)
     }
