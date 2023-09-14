@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useQueryClient } from 'react-query';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -13,7 +13,7 @@ import GridPhotoPreviewer from "../GridPhotoPreviewer";
 
 //
 import { useAppSelector } from '../../_redux/redux';
-import { IMenuItemProps, IPostItemProps } from "../../types";
+import { IMenuItemProps, IPostItemProps, IUserProps } from "../../types";
 
 //
 import { BsThreeDots } from 'react-icons/bs';
@@ -26,10 +26,18 @@ dayjs.extend(relativeTime)
  */
 export default function PostItem({ post }: IPostItemProps) {
     const queryClient = useQueryClient();
-    const user = useAppSelector(state => state.user.user);
+    const user = useAppSelector<IUserProps | null>(state => state.user.user);
     const [openEditModal, setOpenEditModal] = useState<boolean>(false);
 
     const handleShowModal = () => setOpenEditModal(true);
+
+    const [isCreator, setIsCreator] = useState(false);
+
+    useEffect(() => {
+        if (user) {
+            setIsCreator(post.createdBy._id === user._id);
+        }
+    }, [post.createdBy._id, user]);
 
     const { mutate } = useMutationHook({
         queryRoute: `/posts/${post._id}`,
@@ -61,32 +69,36 @@ export default function PostItem({ post }: IPostItemProps) {
                     </div>
                 </div>
 
-                <Menu>
-                    <Menu.Button>
-                        <BsThreeDots />
-                    </Menu.Button>
-                    <Transition
-                        enter="transition duration-100 ease-out"
-                        enterFrom="transform scale-95 opacity-0"
-                        enterTo="transform scale-100 opacity-100"
-                        leave="transition duration-75 ease-out"
-                        leaveFrom="transform scale-100 opacity-100"
-                        leaveTo="transform scale-95 opacity-0"
-                        className="absolute bg-white rounded-md p-2 top-8 right-5 shadow-md z-10"
-                    >
-                        <Menu.Items className="flex flex-col">
-                            <MenuItem
-                                title="Edit post"
-                                icon={<BiPencil />}
-                                onClick={handleShowModal} />
+                {
+                    isCreator &&
+                    <Menu>
+                        <Menu.Button>
+                            <BsThreeDots />
+                        </Menu.Button>
+                        <Transition
+                            enter="transition duration-100 ease-out"
+                            enterFrom="transform scale-95 opacity-0"
+                            enterTo="transform scale-100 opacity-100"
+                            leave="transition duration-75 ease-out"
+                            leaveFrom="transform scale-100 opacity-100"
+                            leaveTo="transform scale-95 opacity-0"
+                            className="absolute bg-white rounded-md p-2 top-8 right-5 shadow-md z-10"
+                        >
+                            <Menu.Items className="flex flex-col">
+                                <MenuItem
+                                    title="Edit post"
+                                    icon={<BiPencil />}
+                                    onClick={handleShowModal} />
 
-                            <MenuItem
-                                title="Delete"
-                                icon={<BiTrash />}
-                                onClick={handleDelete} />
-                        </Menu.Items>
-                    </Transition>
-                </Menu>
+                                <MenuItem
+                                    title="Delete"
+                                    icon={<BiTrash />}
+                                    onClick={handleDelete} />
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
+                }
+
             </div>
 
             <div className="mt-2">
