@@ -17,7 +17,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
         queryRoute: `/circles/${circleId}`,
     });
 
-    const { data, isLoading } = useQueryHook({
+    const { data } = useQueryHook({
         queryName: `circle post ${circleId}`,
         queryRoute: `/posts/${circleId}`,
     });
