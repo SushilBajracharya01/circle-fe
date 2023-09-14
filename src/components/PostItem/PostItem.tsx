@@ -13,11 +13,12 @@ import GridPhotoPreviewer from "../GridPhotoPreviewer";
 
 //
 import { useAppSelector } from '../../_redux/redux';
-import { IMenuItemProps, IPostItemProps, IUserProps } from "../../types";
+import { IPostItemProps, IUserProps } from "../../types";
 
 //
 import { BsThreeDots } from 'react-icons/bs';
 import { BiPencil, BiTrash } from 'react-icons/bi';
+import MenuItem from '../MenuItem';
 
 dayjs.extend(relativeTime)
 
@@ -120,24 +121,5 @@ export default function PostItem({ post }: IPostItemProps) {
                 />
             }
         </div>
-    )
-}
-
-const MenuItem = ({ title, icon, onClick }: IMenuItemProps) => {
-    return (
-        <Menu.Item>
-            {({ active }) => (
-                <div
-                    className={`z-10 cursor-pointer py-1 px-2 flex items-center transition-colors rounded ${active && 'bg-blue-500 text-white'}`}
-                    onClick={onClick}
-                >
-                    {icon}
-
-                    <span className='block ml-2'>
-                        {title}
-                    </span>
-                </div>
-            )}
-        </Menu.Item>
     )
 }
