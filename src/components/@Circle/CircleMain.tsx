@@ -4,6 +4,8 @@ import { ICircleMainProps, IPost } from "../../types";
 import Avatar from "../Avatar";
 import PostItem from "../PostItem";
 import PostInput from "./PostInput";
+import Button from "../Button";
+import { FiPlus } from "react-icons/fi";
 
 /**
  * 
@@ -20,8 +22,6 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
         queryRoute: `/posts/${circleId}`,
     });
 
-    console.log(data, 'data', isLoading)
-
     return (
         <div>
             <div>
@@ -30,23 +30,29 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
                         <div>Loading ...</div>
                         :
                         <div className="bg-blue-600 p-3 mb-3 text-white rounded-md">
-                            <div className="flex items-center gap-4">
-                                <Avatar isCloudinary url={circle?.result?.photo?.public_id} size="lg" isPeople={false} />
+                            <div className="flex justify-between items-center gap-4">
+                                <div className="flex items-center">
+                                    <Avatar isCloudinary url={circle?.result?.photo?.public_id} size="lg" isPeople={false} />
+
+                                    <div className="ml-3">
+                                        <h2 className="text-3xl font-semibold">
+                                            {circle?.result?.name}
+                                        </h2>
+                                        {
+                                            !!circle?.result?.moto &&
+                                            <div className="text-sm italic">
+                                                "{circle.result.moto}""
+                                            </div>
+                                        }
+
+                                        <div>
+                                            {circle?.result?.description}
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div>
-                                    <h2 className="text-3xl font-semibold">
-                                        {circle?.result?.name}
-                                    </h2>
-                                    {
-                                        !!circle?.result?.moto &&
-                                        <div className="text-sm italic">
-                                            "{circle.result.moto}""
-                                        </div>
-                                    }
-
-                                    <div>
-                                        {circle?.result?.description}
-                                    </div>
+                                    <Button icon={<FiPlus />} label="Invite" />
                                 </div>
                             </div>
 
