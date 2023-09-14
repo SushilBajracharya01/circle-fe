@@ -11,9 +11,11 @@ import { FiLogOut } from "react-icons/fi";
 import { AiFillHome } from "react-icons/ai";
 import { MdGroups } from "react-icons/md";
 
-import { useAppDispatch } from "../../_redux/redux";
+import { useAppDispatch, useAppSelector } from "../../_redux/redux";
 import { logOutUser } from "../../_redux/authSlice";
 import NavButton from "./@Header/NavButton";
+import Avatar from "../Avatar";
+import { IUserProps } from "../../types";
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -22,6 +24,7 @@ function classNames(...classes: string[]) {
 export default function Header() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
+    const user = useAppSelector<IUserProps | null>(state => state.user.user)
 
     const handleGoto = (href: string) => {
         navigate(href);
@@ -65,6 +68,13 @@ export default function Header() {
 
                 {/* desktop right side */}
                 <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                    <div className="mr-3">
+                        <Avatar
+                            isCloudinary
+                            url={user?.photo}
+                            size="sm"
+                        />
+                    </div>
                     <Popover className="relative">
                         {({ open }) => (
                             <>
