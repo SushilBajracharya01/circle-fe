@@ -11,6 +11,7 @@ export interface IInputProps {
     errors?: any;
     disabled?: boolean;
     className?: string;
+    placeholder?: string;
 }
 
 export interface IButtonProps {

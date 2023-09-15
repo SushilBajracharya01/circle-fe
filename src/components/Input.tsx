@@ -1,7 +1,7 @@
 import { IInputProps } from "../types"
 import Password from "./Password";
 
-export default function Input({ label, name, type, isRequired, register, errors, className }: IInputProps) {
+export default function Input({ label, name, type, isRequired, register, errors, className, placeholder }: IInputProps) {
 
     let element = null;
 
@@ -16,6 +16,7 @@ export default function Input({ label, name, type, isRequired, register, errors,
                     id={name}
                     name={name}
                     type={type}
+                    placeholder={placeholder}
                     {
                     ...(register ? register(name) : {})
                     }
@@ -35,6 +36,7 @@ export default function Input({ label, name, type, isRequired, register, errors,
                     }
                     // required={isRequired}
                     className="circle_input"
+                    placeholder={placeholder}
                 />
             </div>
     }
