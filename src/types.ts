@@ -148,6 +148,8 @@ export interface IPhotoInputProps {
     previewUrl?: string;
     onPhotoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string;
+    isPeople?: boolean;
+    disabled?: boolean;
 }
 
 export interface ICircleFormProps {

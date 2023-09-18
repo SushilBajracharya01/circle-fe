@@ -8,8 +8,11 @@ import { ICircleFormData, ICircleFormProps } from "../../../types";
 import { useEffect, useState } from "react";
 import PhotoInput from "../../PhotoInput/PhotoInput";
 import Button from "../../Button";
+import { useQueryClient } from "react-query";
 
 export default function CircleForm({ handleHideForm }: ICircleFormProps) {
+    const queryClient = useQueryClient();
+
     const [previewUrl, setPreviewUrl] = useState<string | undefined>();
     const [profileImage, setProfileImage] = useState<FileList | null>(null);
 
@@ -38,6 +41,8 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
         options: {
             onSuccess: () => {
                 toast.success('Circle created successfully.');
+                queryClient.invalidateQueries(['my-circle']);
+                handleHideForm();
             }
         }
     });
@@ -76,6 +81,8 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
                     previewUrl={previewUrl}
                     onPhotoChange={onPhotoChange}
                     className="mb-5"
+                    isPeople={false}
+                    disabled={isLoading}
                 />
 
                 <Input
@@ -99,7 +106,7 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
                     type="text"
                     className="mb-5"
                 />
-                
+
                 <Input
                     label="Description"
                     name="description"

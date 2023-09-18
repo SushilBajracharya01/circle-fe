@@ -36,8 +36,8 @@ export default function MyCircle() {
                     <div>Loading ...</div>
                     :
                     <div>
-                        <div className="flex justify-between items-center">
-                            <h2 className="text-2xl font-bold mb-5">My Circles</h2>
+                        <div className="flex justify-between items-center mb-5">
+                            <h2 className="text-2xl font-bold">My Circles</h2>
 
                             <Button label="Add" icon={<FiPlus />} onClick={handleShowForm} />
                         </div>
