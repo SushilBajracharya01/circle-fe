@@ -1,9 +1,11 @@
 import { Dispatch, ReactElement, ReactNode, SetStateAction } from "react";
 
+
+export type typeT = 'text' | 'number' | 'password' | 'textarea';
 export interface IInputProps {
     label?: string;
     name: string;
-    type?: 'text' | 'number' | 'password' | 'textarea';
+    type?: typeT;
     isRequired?: boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register?: any;

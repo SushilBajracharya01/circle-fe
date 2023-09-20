@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { circleSchema } from "../../../schemas/Schemas";
 import { useMutationHook } from "../../../hooks/react-query/useQueryHook";
 import { toast } from "react-toastify";
-import { ICircleFormData, ICircleFormProps } from "../../../types";
+import { ICircleFormData, ICircleFormProps, typeT } from "../../../types";
 import { useEffect, useState } from "react";
 import PhotoInput from "../../PhotoInput/PhotoInput";
 import Button from "../../Button";
@@ -85,44 +85,43 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
                     disabled={isLoading}
                 />
 
-                <Input
-                    label="Name"
-                    name="name"
-                    register={register}
-                    disabled={isLoading}
-                    errors={errors}
-                    isRequired
-                    type="text"
-                    className="mb-5"
-                />
-
-                <Input
-                    label="Moto"
-                    name="moto"
-                    register={register}
-                    disabled={isLoading}
-                    errors={errors}
-                    isRequired
-                    type="text"
-                    className="mb-5"
-                />
-
-                <Input
-                    label="Description"
-                    name="description"
-                    register={register}
-                    disabled={isLoading}
-                    errors={errors}
-                    isRequired
-                    type="textarea"
-                    className="mb-5"
-                />
+                {
+                    CircleFormStructure.map(input =>
+                        <Input
+                            key={input.name}
+                            label={input.label}
+                            name={input.name}
+                            register={register}
+                            disabled={isLoading}
+                            errors={errors}
+                            isRequired
+                            type={input.type}
+                            className="mb-5"
+                        />)
+                }
 
                 <Button
                     label="Submit"
                     isLoading={isLoading}
+                    disabled={isLoading}
                 />
             </form>
         </div>
     )
 }
+
+const CircleFormStructure: { label: string; name: string; type: typeT }[] = [
+    {
+        label: "Name",
+        name: 'name',
+        type: 'text'
+    }, {
+        label: "Moto",
+        name: 'moto',
+        type: 'text'
+    }, {
+        label: "Description",
+        name: 'description',
+        type: 'textarea'
+    },
+]
