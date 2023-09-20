@@ -73,7 +73,7 @@ export default function GridPhotoPreviewer({ previews = [], isCloudinary = true,
             <div className={`grid gap-0.5 ${className}`}>
                 {
                     secondRowImages.map((image: string, index: number) => (
-                        <div className={'w-full relative'} key={image}>
+                        <div className={'w-full relative group'} key={image}>
                             {
                                 editMode &&
                                 <AiFillCloseCircle fontSize={32} className="group-hover:opacity-95 opacity-0 transition-opacity absolute top-3 right-2 z-10 cursor-pointer" onClick={() => onRemove?.(image)} />
