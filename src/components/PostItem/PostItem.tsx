@@ -111,7 +111,7 @@ export default function PostItem({ post }: IPostItemProps) {
             </div>
 
             {
-                user &&
+                user && openEditModal &&
                 <PostModal
                     circleId={post.circleId}
                     isOpen={openEditModal}
