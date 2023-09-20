@@ -4,7 +4,7 @@ import GridPhotoPreviewer from "../GridPhotoPreviewer";
 /**
  * 
  */
-export default function PhotoUploader({ isMulti, handleChange, previewUrls }: IPhotoUploaderProps) {
+export default function PhotoUploader({ isMulti, handleChange, previewUrls, onRemove }: IPhotoUploaderProps) {
     return (
         <>
             <div className="w-full flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -30,7 +30,9 @@ export default function PhotoUploader({ isMulti, handleChange, previewUrls }: IP
                         >
                             <span className="cursor-pointer">Upload a file</span>
                             <input id="file-upload" name="file-upload" type="file" className="sr-only" multiple={isMulti}
-                                onChange={handleChange} />
+                                onChange={handleChange}
+                                accept="image/*"
+                            />
                         </label>
                         <p className="pl-1">or drag and drop</p>
                     </div>
@@ -39,7 +41,7 @@ export default function PhotoUploader({ isMulti, handleChange, previewUrls }: IP
             </div>
 
             <div className="mt-2 rounded-md overflow-hidden">
-                <GridPhotoPreviewer previews={previewUrls} isCloudinary={false} />
+                <GridPhotoPreviewer previews={previewUrls} isCloudinary={false} onRemove={onRemove} editMode />
             </div>
         </>
     )
