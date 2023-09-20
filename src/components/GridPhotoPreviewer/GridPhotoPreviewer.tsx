@@ -60,7 +60,7 @@ export default function GridPhotoPreviewer({ previews = [], isCloudinary = true,
                 <div className="relative group">
                     {
                         editMode &&
-                        <AiFillCloseCircle fontSize={32} className="group-hover:opacity-95 opacity-0 transition-opacity absolute top-3 right-2 z-10 cursor-pointer" onClick={() => onRemove?.(firstImage)} />
+                        <AiFillCloseCircle fontSize={32} className="group-hover:opacity-95 rounded-full bg-white opacity-0 transition-opacity absolute top-3 right-2 z-10 cursor-pointer" onClick={() => onRemove?.(firstImage)} />
                     }
                     {
                         isCloudinary ?
