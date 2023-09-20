@@ -195,12 +195,17 @@ export interface IPhotoUploaderProps {
     isMulti?: boolean;
     handleChange: (e: React.ChangeEvent<HTMLInputElement> | undefined) => void;
     previewUrls: string[] | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onRemove: (data: any) => void;
 }
 
 export interface IGridPhotoPreviewerProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     previews: any;
     isCloudinary?: boolean;
+    editMode?: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onRemove?: (data: any) => void;
 }
 
 export interface IMenuItemProps {

@@ -5,11 +5,12 @@ import CloudinaryImg from "../CloudinaryImg";
 
 //
 import { IGridPhotoPreviewerProps } from "../../types";
+import { AiFillCloseCircle } from "react-icons/ai";
 
 /**
  * 
  */
-export default function GridPhotoPreviewer({ previews = [], isCloudinary = true }: IGridPhotoPreviewerProps) {
+export default function GridPhotoPreviewer({ previews = [], isCloudinary = true, onRemove, editMode }: IGridPhotoPreviewerProps) {
     const [firstImage, setFirstImage] = useState<string>('');
     const [secondRowImages, setSecondRowImages] = useState<string[] | []>([]);
     const [remainingImages, setRemainingImages] = useState<string[] | []>([]);
@@ -56,22 +57,32 @@ export default function GridPhotoPreviewer({ previews = [], isCloudinary = true 
     return (
         <div className="mt-2">
             <div className="mb-0.5">
-                {
-                    isCloudinary ?
-                        <CloudinaryImg publicId={firstImage} width={600} height={400} className="object-contain" />
-                        :
-                        <img src={firstImage} width={600} height={400} className="object-contain" />
-                }
+                <div className="relative group">
+                    {
+                        editMode &&
+                        <AiFillCloseCircle fontSize={32} className="group-hover:opacity-95 opacity-0 transition-opacity absolute top-3 right-2 z-10 cursor-pointer" onClick={() => onRemove?.(firstImage)} />
+                    }
+                    {
+                        isCloudinary ?
+                            <CloudinaryImg publicId={firstImage} width={600} height={400} className="object-contain" />
+                            :
+                            <img src={firstImage} width={600} height={400} className="object-contain" />
+                    }
+                </div>
             </div>
             <div className={`grid gap-0.5 ${className}`}>
                 {
                     secondRowImages.map((image: string, index: number) => (
                         <div className={'w-full relative'} key={image}>
                             {
+                                editMode &&
+                                <AiFillCloseCircle fontSize={32} className="group-hover:opacity-95 opacity-0 transition-opacity absolute top-3 right-2 z-10 cursor-pointer" onClick={() => onRemove?.(image)} />
+                            }
+                            {
                                 isCloudinary ?
                                     <CloudinaryImg publicId={image} width={400} height={200} className="h-full w-full object-cover" />
                                     :
-                                    <img src={firstImage} width={400} height={200} className="object-contain" />
+                                    <img src={image} width={400} height={200} className="object-contain" />
                             }
                             {
                                 (index == 2 && remainingImages.length > 0) &&
