@@ -89,7 +89,7 @@ export default function PostModal({ isOpen, setIsOpen, user, circleId, post }: I
         },
         options: {
             onSuccess: () => {
-                toast.success('Circle created successfully.');
+                toast.success('Post created successfully.');
                 queryClient.invalidateQueries({ queryKey: [`circle post ${circleId}`] });
                 handleHideModal();
             }

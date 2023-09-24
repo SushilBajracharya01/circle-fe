@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from "../../_redux/redux";
 import { Menu, Transition } from "@headlessui/react";
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useMutationHook, useQueryHook } from "../../hooks/react-query/useQueryHook";
 
 //
@@ -18,7 +19,7 @@ import MenuItem from "../MenuItem";
 import PostInput from "./PostInput";
 
 //
-import { ICircleMainProps, IPost, IUserProps } from "../../types";
+import { ICircleMainProps, ICirclePostsResponse, IPost, IUserProps } from "../../types";
 
 /**
  * 
@@ -27,6 +28,9 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
     const navigate = useNavigate();
     const user = useAppSelector<IUserProps | null>(state => state.user.user);
     const [isCreator, setIsCreator] = useState(false);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [posts, setPosts] = useState<IPost[]>([]);
+    const [totalPosts, setTotalPosts] = useState<number>(0);
 
 
 
@@ -35,10 +39,24 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
         queryRoute: `/circles/${circleId}`,
     });
 
-    const { data } = useQueryHook({
+    const handlePostFetch = (data: ICirclePostsResponse) => {
+        setPosts(prev => [...prev, ...data.results]); 
+        setTotalPosts(data.totalDocuments);
+    }
+
+    useQueryHook({
         queryName: `circle post ${circleId}`,
         queryRoute: `/posts/${circleId}`,
+        params: [['page', pageNumber]],
+        options: {
+            onSuccess: handlePostFetch
+        }
     });
+
+    const fetchData = () => {
+        console.log('fetch daga')
+        setPageNumber(prev => prev + 1);
+    }
 
     const handleOnDeleteSuccess = () => {
         navigate('/');
@@ -47,8 +65,6 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
             'Your file has been deleted.',
             'success'
         );
-
-
     };
     const handleOnDeleteError = () => { };
 
@@ -162,11 +178,23 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
             }
 
             <div>
-                {
-                    data?.results?.map((post: IPost) => (
-                        <PostItem post={post} key={post._id} />
-                    ))
-                }
+                <InfiniteScroll
+                    dataLength={totalPosts} //This is important field to render the next data
+                    next={fetchData}
+                    hasMore={true}
+                    loader={<h4>Loading...</h4>}
+                    endMessage={
+                        <p style={{ textAlign: 'center' }}>
+                            <b>Yay! You have seen it all</b>
+                        </p>
+                    }
+                >
+                    {
+                        posts?.map((post: IPost) => (
+                            <PostItem post={post} key={post._id} />
+                        ))
+                    }
+                </InfiniteScroll>
             </div>
         </div>
     )

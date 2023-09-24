@@ -226,3 +226,12 @@ export interface IPostModalProps {
     circleId: string;
     post?: IPost;
 }
+
+export interface ICirclePostsResponse {
+    message: string;
+    currentPage: number;
+    status: number;
+    totalDocuments: number;
+    totalPage: number;
+    results: IPost[]
+}
