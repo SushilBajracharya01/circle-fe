@@ -1,21 +1,30 @@
+import Swal from 'sweetalert2';
+import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from "../../_redux/redux";
-import { useQueryHook } from "../../hooks/react-query/useQueryHook";
-import { ICircleMainProps, IPost, IUserProps } from "../../types";
+import { Menu, Transition } from "@headlessui/react";
+import { useMutationHook, useQueryHook } from "../../hooks/react-query/useQueryHook";
+
+//
+import { FiPlus } from "react-icons/fi";
+import { BiPencil, BiTrash } from "react-icons/bi";
+import { BsThreeDotsVertical } from "react-icons/bs";
+
+//
+import Button from "../Button";
 import Avatar from "../Avatar";
 import PostItem from "../PostItem";
-import PostInput from "./PostInput";
-import Button from "../Button";
-import { FiPlus } from "react-icons/fi";
-import { useEffect, useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import { BsThreeDotsVertical } from "react-icons/bs";
 import MenuItem from "../MenuItem";
-import { BiPencil, BiTrash } from "react-icons/bi";
+import PostInput from "./PostInput";
+
+//
+import { ICircleMainProps, IPost, IUserProps } from "../../types";
 
 /**
  * 
  */
 export default function CircleMain({ circleId }: ICircleMainProps) {
+    const navigate = useNavigate();
     const user = useAppSelector<IUserProps | null>(state => state.user.user);
     const [isCreator, setIsCreator] = useState(false);
 
@@ -30,7 +39,27 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
         queryName: `circle post ${circleId}`,
         queryRoute: `/posts/${circleId}`,
     });
-    console.log(circle, 'circle')
+
+    const handleOnDeleteSuccess = () => {
+        navigate('/');
+        Swal.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+        );
+
+
+    };
+    const handleOnDeleteError = () => { };
+
+    const { mutate } = useMutationHook({
+        queryRoute: `/circles/${circleId}`,
+        method: 'delete',
+        options: {
+            onSuccess: handleOnDeleteSuccess,
+            onError: handleOnDeleteError
+        }
+    })
 
     useEffect(() => {
         if (user && circle?.result?.createdBy) {
@@ -40,7 +69,18 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
 
 
     const handleDelete = () => {
-        console.log('delete', 'ds')
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            confirmButtonColor: "#d22",
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                mutate({});
+            }
+        })
     }
 
     return (
@@ -72,7 +112,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
                                     </div>
                                 </div>
 
-                                <div className="relative">
+                                <div className="relative flex gap-2">
                                     <Button icon={<FiPlus />} label="Invite" />
 
                                     {
@@ -97,7 +137,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
                                                         disabled
                                                     />
 
-                                                    <hr className="my-1"/>
+                                                    <hr className="my-1" />
 
                                                     <MenuItem
                                                         title="Delete"

@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
-import { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
 import { useQueryClient } from 'react-query';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { Menu, Transition } from "@headlessui/react";
@@ -51,9 +52,28 @@ export default function PostItem({ post }: IPostItemProps) {
         }
     })
 
+
     const handleDelete = () => {
-        mutate({});
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            confirmButtonColor: "#d22",
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                mutate({});
+
+                Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                )
+            }
+        })
     }
+
 
     return (
         <div className="rounded bg-gray-100 px-3 py-4 mb-5">
