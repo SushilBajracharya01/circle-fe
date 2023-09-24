@@ -17,10 +17,14 @@ import NavButton from "./@Header/NavButton";
 import Avatar from "../Avatar";
 import { IUserProps } from "../../types";
 
+//
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
+/**
+ * 
+ */
 export default function Header() {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
