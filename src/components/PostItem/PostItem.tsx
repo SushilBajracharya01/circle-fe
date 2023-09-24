@@ -89,12 +89,13 @@ export default function PostItem({ post }: IPostItemProps) {
                                 <MenuItem
                                     title="Edit post"
                                     icon={<BiPencil />}
-                                    onClick={handleShowModal} />
+                                    handleClick={handleShowModal} />
 
                                 <MenuItem
                                     title="Delete"
+                                    type="danger"
                                     icon={<BiTrash />}
-                                    onClick={handleDelete} />
+                                    handleClick={handleDelete} />
                             </Menu.Items>
                         </Transition>
                     </Menu>

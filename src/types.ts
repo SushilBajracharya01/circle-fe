@@ -214,7 +214,9 @@ export interface IMenuItemProps {
     title: string;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     icon: any;
-    onClick: () => void;
+    handleClick?: () => void;
+    disabled?: boolean;
+    type?: 'normal' | 'danger';
 }
 
 export interface IPostModalProps {
