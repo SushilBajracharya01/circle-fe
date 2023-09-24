@@ -30,7 +30,7 @@ export default function MyCircle() {
     }
 
     return (
-        <div>
+        <div className="bg-gray-100 p-4 rounded-lg">
             {
                 isLoading ?
                     <div>Loading ...</div>

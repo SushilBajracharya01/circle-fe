@@ -67,7 +67,7 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
     };
 
     return (
-        <div>
+        <div className="p-4 bg-gray-100">
             <div className="flex justify-between items-center mb-5">
                 <h2 className="text-2xl font-bold">New Circles</h2>
 
