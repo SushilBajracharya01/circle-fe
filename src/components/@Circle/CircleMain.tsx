@@ -22,6 +22,7 @@ import PostListLoading from '../@Loadings/PostListLoading';
 //
 import { ICircleMainProps, ICirclePostsResponse, IPost, IUserProps } from "../../types";
 import CircleHeadLoading from '../@Loadings/CircleHeadLoading';
+import PostInputLoading from '../@Loadings/PostInputLoading';
 
 
 /**
@@ -186,8 +187,10 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
             </div>
 
             {
-                user &&
-                <PostInput user={user} circleId={circleId} resetPage={resetPage} />
+                user ?
+                    <PostInput user={user} circleId={circleId} resetPage={resetPage} />
+                    :
+                    <PostInputLoading />
             }
 
             <div>
