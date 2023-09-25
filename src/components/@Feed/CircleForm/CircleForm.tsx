@@ -22,6 +22,8 @@ export default function CircleForm({ circle, handleHideForm }: ICircleFormProps)
 
     const [previewUrl, setPreviewUrl] = useState<string | undefined>();
     const [profileImage, setProfileImage] = useState<FileList | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
 
     useEffect(() => {
         if (profileImage && profileImage[0]) {
@@ -71,7 +73,7 @@ export default function CircleForm({ circle, handleHideForm }: ICircleFormProps)
         options: {
             onSuccess: () => {
                 toast.success('Circle updated successfully.');
-                queryClient.invalidateQueries(['my-circle']);
+                queryClient.invalidateQueries([`circle ${circle?._id}`]);
                 handleHideForm();
             }
         }
@@ -102,7 +104,10 @@ export default function CircleForm({ circle, handleHideForm }: ICircleFormProps)
         setProfileImage(files);
     };
 
-    const isLoading = isCreatingCircle || isUpdatingCircle;
+
+    useEffect(() => {
+        setIsLoading(isCreatingCircle || isUpdatingCircle);
+    }, [isCreatingCircle, isUpdatingCircle]);
 
     return (
         <div className="p-4 bg-gray-100">
