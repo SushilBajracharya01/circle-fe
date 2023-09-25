@@ -20,6 +20,7 @@ import PostInput from "./PostInput";
 
 //
 import { ICircleMainProps, ICirclePostsResponse, IPost, IUserProps } from "../../types";
+import { VscLoading } from 'react-icons/vsc';
 
 /**
  * 
@@ -192,10 +193,13 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
                     dataLength={posts.length}
                     next={fetchData}
                     hasMore={hasMorePost}
-                    loader={<h4>Loading...</h4>}
+                    loader={<div className='flex justify-center items-center py-4'>
+                        <VscLoading className="animate-spin" />
+                    </div>}
                     endMessage={
-                        <p style={{ textAlign: 'center' }}>
-                            <b>Yay! You have seen it all</b>
+                        <p className='bg-gray-100 p-4 text-center'>
+                            <b>You have seen it all.</b>
+                            <b className='block'> Create more.</b>
                         </p>
                     }
                     scrollableTarget="main-scroll"
