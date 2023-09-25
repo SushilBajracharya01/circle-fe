@@ -103,7 +103,7 @@ export default function PostModal({ isOpen, setIsOpen, user, circleId, post, res
         },
         options: {
             onSuccess: () => {
-                toast.success('Circle update successfully.');
+                toast.success('Post update successfully.');
                 queryClient.invalidateQueries({ queryKey: [`circle post ${circleId}`] });
                 handleHideModal();
             }

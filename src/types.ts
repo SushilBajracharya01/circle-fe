@@ -152,10 +152,12 @@ export interface IPhotoInputProps {
     className?: string;
     isPeople?: boolean;
     disabled?: boolean;
+    isCloudinary?: boolean;
 }
 
 export interface ICircleFormProps {
-    handleHideForm: () => void
+    handleHideForm: () => void;
+    circle?: ICircle
 }
 
 export interface IColumnLayoutProps {

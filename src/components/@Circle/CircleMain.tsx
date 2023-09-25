@@ -23,6 +23,7 @@ import PostListLoading from '../@Loadings/PostListLoading';
 import { ICircleMainProps, ICirclePostsResponse, IPost, IUserProps } from "../../types";
 import CircleHeadLoading from '../@Loadings/CircleHeadLoading';
 import PostInputLoading from '../@Loadings/PostInputLoading';
+import CircleForm from '../@Feed/CircleForm';
 
 
 /**
@@ -31,10 +32,11 @@ import PostInputLoading from '../@Loadings/PostInputLoading';
 export default function CircleMain({ circleId }: ICircleMainProps) {
     const navigate = useNavigate();
     const user = useAppSelector<IUserProps | null>(state => state.user.user);
-    const [isCreator, setIsCreator] = useState(false);
+    const [isCreator, setIsCreator] = useState<boolean>(false);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [posts, setPosts] = useState<IPost[]>([]);
-    const [hasMorePost, setHasMorePost] = useState(true);
+    const [hasMorePost, setHasMorePost] = useState<boolean>(true);
+    const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
     const { data: circle, isLoading: isCircleLoading } = useQueryHook({
         queryName: `circle ${circleId}`,
@@ -113,6 +115,13 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
         })
     }
 
+    const handleOnEditClick = () => setIsEditMode(true);
+    const handleHideForm = () => setIsEditMode(false);
+
+    if (isEditMode) {
+        return <CircleForm circle={circle?.result} handleHideForm={handleHideForm} />
+    }
+
     return (
         <div>
             <div>
@@ -164,7 +173,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
                                                     <MenuItem
                                                         title="Edit"
                                                         icon={<BiPencil />}
-                                                        disabled
+                                                        handleClick={handleOnEditClick}
                                                     />
 
                                                     <hr className="my-1" />

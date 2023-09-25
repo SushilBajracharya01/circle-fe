@@ -1,16 +1,23 @@
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
-import Input from "../../Input";
+import { useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+//
+import Input from "../../Input";
+import Button from "../../Button";
+import PhotoInput from "../../PhotoInput/PhotoInput";
+
+//
 import { circleSchema } from "../../../schemas/Schemas";
 import { useMutationHook } from "../../../hooks/react-query/useQueryHook";
-import { toast } from "react-toastify";
 import { ICircleFormData, ICircleFormProps, typeT } from "../../../types";
-import { useEffect, useState } from "react";
-import PhotoInput from "../../PhotoInput/PhotoInput";
-import Button from "../../Button";
-import { useQueryClient } from "react-query";
 
-export default function CircleForm({ handleHideForm }: ICircleFormProps) {
+/**
+ * 
+ */
+export default function CircleForm({ circle, handleHideForm }: ICircleFormProps) {
     const queryClient = useQueryClient();
 
     const [previewUrl, setPreviewUrl] = useState<string | undefined>();
@@ -27,13 +34,21 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
 
     const {
         register,
+        setValue,
         handleSubmit,
         formState: { errors },
     } = useForm({
         resolver: yupResolver(circleSchema),
     });
 
-    const { mutate, isLoading } = useMutationHook({
+    useEffect(() => {
+        if (!circle) return;
+        setValue('name', circle.name);
+        setValue('moto', circle.moto);
+        setValue('description', circle.description);
+    }, [circle, setValue]);
+
+    const { mutate, isLoading: isCreatingCircle } = useMutationHook({
         queryRoute: '/circles',
         axiosOptions: {
             multipart: true,
@@ -41,6 +56,21 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
         options: {
             onSuccess: () => {
                 toast.success('Circle created successfully.');
+                queryClient.invalidateQueries(['my-circle']);
+                handleHideForm();
+            }
+        }
+    });
+
+    const { mutate: updateCircle, isLoading: isUpdatingCircle } = useMutationHook({
+        queryRoute: `/circles/${circle?._id}`,
+        method: 'patch',
+        axiosOptions: {
+            multipart: true,
+        },
+        options: {
+            onSuccess: () => {
+                toast.success('Circle updated successfully.');
                 queryClient.invalidateQueries(['my-circle']);
                 handleHideForm();
             }
@@ -56,7 +86,13 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
         if (profileImage) {
             formData.append('photo', profileImage[0]);
         }
-        mutate(formData)
+
+        if (circle) {
+            updateCircle(formData)
+        }
+        else {
+            mutate(formData)
+        }
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -66,10 +102,12 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
         setProfileImage(files);
     };
 
+    const isLoading = isCreatingCircle || isUpdatingCircle;
+
     return (
         <div className="p-4 bg-gray-100">
             <div className="flex justify-between items-center mb-5">
-                <h2 className="text-2xl font-bold">New Circles</h2>
+                <h2 className="text-2xl font-bold">{circle ? `Edit ${circle.name}` : 'New Circles'} </h2>
 
                 <Button
                     label="X"
@@ -78,7 +116,8 @@ export default function CircleForm({ handleHideForm }: ICircleFormProps) {
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <PhotoInput
-                    previewUrl={previewUrl}
+                    previewUrl={previewUrl || circle?.photo?.public_id}
+                    isCloudinary={Boolean(!previewUrl && circle?.photo)}
                     onPhotoChange={onPhotoChange}
                     className="mb-5"
                     isPeople={false}

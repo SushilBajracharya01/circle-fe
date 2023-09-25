@@ -1,11 +1,12 @@
 import { IPhotoInputProps } from "../../types";
 import Avatar from "../Avatar";
 
-export default function PhotoInput({ previewUrl, onPhotoChange, className, isPeople, disabled }: IPhotoInputProps) {
+export default function PhotoInput({ previewUrl, onPhotoChange, className, isPeople, disabled, isCloudinary }: IPhotoInputProps) {
+    console.log(previewUrl, 'previewUrl')
     return (
         <div className={`flex items-center ${className}`}>
             <div className="flex justify-start items-center">
-                <Avatar url={previewUrl} isPeople={isPeople} />
+                <Avatar url={previewUrl} isPeople={isPeople} isCloudinary={isCloudinary} />
             </div>
             <input
                 type="file"
