@@ -30,9 +30,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
     const [isCreator, setIsCreator] = useState(false);
     const [pageNumber, setPageNumber] = useState<number>(1);
     const [posts, setPosts] = useState<IPost[]>([]);
-    const [totalPosts, setTotalPosts] = useState<number>(0);
-
-
+    const [hasMorePost, setHasMorePost] = useState(true);
 
     const { data: circle, isLoading: isCircleLoading } = useQueryHook({
         queryName: `circle ${circleId}`,
@@ -40,8 +38,16 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
     });
 
     const handlePostFetch = (data: ICirclePostsResponse) => {
-        setPosts(prev => [...prev, ...data.results]); 
-        setTotalPosts(data.totalDocuments);
+        if (pageNumber === 1) {
+            setPosts(data.results);
+        }
+        else if (data.status === 200 && data.results) {
+            setPosts(prev => [...prev, ...data.results]);
+        }
+    }
+
+    const handlePostFetchError = () => {
+        setHasMorePost(false);
     }
 
     useQueryHook({
@@ -49,13 +55,17 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
         queryRoute: `/posts/${circleId}`,
         params: [['page', pageNumber]],
         options: {
-            onSuccess: handlePostFetch
+            onSuccess: handlePostFetch,
+            onError: handlePostFetchError,
         }
     });
 
     const fetchData = () => {
-        console.log('fetch daga')
         setPageNumber(prev => prev + 1);
+    }
+
+    const resetPage = () => {
+        setPageNumber(1);
     }
 
     const handleOnDeleteSuccess = () => {
@@ -174,20 +184,21 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
 
             {
                 user &&
-                <PostInput user={user} circleId={circleId} />
+                <PostInput user={user} circleId={circleId} resetPage={resetPage} />
             }
 
             <div>
                 <InfiniteScroll
-                    dataLength={totalPosts} //This is important field to render the next data
+                    dataLength={posts.length}
                     next={fetchData}
-                    hasMore={true}
+                    hasMore={hasMorePost}
                     loader={<h4>Loading...</h4>}
                     endMessage={
                         <p style={{ textAlign: 'center' }}>
                             <b>Yay! You have seen it all</b>
                         </p>
                     }
+                    scrollableTarget="main-scroll"
                 >
                     {
                         posts?.map((post: IPost) => (

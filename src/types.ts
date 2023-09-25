@@ -191,6 +191,7 @@ export interface IPostItemProps {
 export interface IPostInputProps {
     user: IUserProps;
     circleId: string;
+    resetPage: () => void;
 }
 
 export interface IPhotoUploaderProps {
@@ -225,6 +226,7 @@ export interface IPostModalProps {
     user: IUserProps;
     circleId: string;
     post?: IPost;
+    resetPage: () => void;
 }
 
 export interface ICirclePostsResponse {

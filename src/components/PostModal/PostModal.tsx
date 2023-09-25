@@ -26,7 +26,7 @@ import { AiFillCloseCircle } from 'react-icons/ai'
 /**
  * 
  */
-export default function PostModal({ isOpen, setIsOpen, user, circleId, post }: IPostModalProps) {
+export default function PostModal({ isOpen, setIsOpen, user, circleId, post, resetPage }: IPostModalProps) {
     const queryClient = useQueryClient();
     const isEdit = Boolean(post);
 
@@ -90,6 +90,7 @@ export default function PostModal({ isOpen, setIsOpen, user, circleId, post }: I
         options: {
             onSuccess: () => {
                 toast.success('Post created successfully.');
+                resetPage();
                 queryClient.invalidateQueries({ queryKey: [`circle post ${circleId}`] });
                 handleHideModal();
             }
@@ -157,7 +158,7 @@ export default function PostModal({ isOpen, setIsOpen, user, circleId, post }: I
             if (postImages) {
                 for (let i = 0; i < postImages.length; i++) {
                     const file = postImages[i];
-                    if(imageIdx !== i) {
+                    if (imageIdx !== i) {
                         tempPostImages.items.add(file);
                     }
                 }

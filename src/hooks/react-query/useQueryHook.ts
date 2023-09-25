@@ -24,13 +24,9 @@ interface IQueryHook {
 
 export const useQueryHook = ({ queryName, queryRoute, params = [], options = {} }: IQueryHook) => {
 	const requestService = async () => {
-		try {
-			const queryParams = params.map((p) => p.join('='));
-			const response = await Axios.get(queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : ''));
-			return response?.data || {};
-		} catch (error) {
-			console.log(error);
-		}
+		const queryParams = params.map((p) => p.join('='));
+		const response = await Axios.get(queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : ''));
+		return response?.data || {};
 	};
 	return useQuery({
 		queryKey: [queryName, ...params],

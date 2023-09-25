@@ -10,7 +10,7 @@ import { IPostInputProps } from "../../types"
 /**
  * 
  */
-export default function PostInput({ user, circleId }: IPostInputProps) {
+export default function PostInput({ user, circleId, resetPage }: IPostInputProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleShowModal = () => setIsOpen(true);
@@ -31,6 +31,7 @@ export default function PostInput({ user, circleId }: IPostInputProps) {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         user={user}
+        resetPage={resetPage}
       />
     </div >
   )
