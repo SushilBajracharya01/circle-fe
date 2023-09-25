@@ -21,6 +21,7 @@ import PostListLoading from '../@Loadings/PostListLoading';
 
 //
 import { ICircleMainProps, ICirclePostsResponse, IPost, IUserProps } from "../../types";
+import CircleHeadLoading from '../@Loadings/CircleHeadLoading';
 
 
 /**
@@ -116,7 +117,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
             <div>
                 {
                     isCircleLoading ?
-                        <div>Loading ...</div>
+                        <CircleHeadLoading />
                         :
                         <div className="bg-blue-600 p-3 mb-3 text-white rounded-md">
                             <div className="flex justify-between items-center gap-4">
