@@ -9,7 +9,7 @@ import { IPasswordProps } from "../types";
 /**
  * 
  */
-export default function Password({ name, isRequired, register }: IPasswordProps) {
+export default function Password({ name, isRequired, register, disabled }: IPasswordProps) {
     const [showPassword, setShowPassword] = useState(false);
 
     const toggleShowPassword = () => setShowPassword(prev => !prev);
@@ -20,6 +20,7 @@ export default function Password({ name, isRequired, register }: IPasswordProps)
                 name={name}
                 type={showPassword ? "text" : "password"}
                 required={isRequired}
+                disabled={disabled}
                 className="circle_input"
                 {...(register ? register(name) : {})}
             />
