@@ -6,6 +6,7 @@ import { useQueryClient } from 'react-query'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 //
+import { IPostModalProps } from '../../types'
 import { postSchema } from '../../schemas/Schemas'
 import { useMutationHook } from '../../hooks/react-query/useQueryHook'
 
@@ -15,9 +16,6 @@ import Avatar from '../Avatar'
 import Button from '../Button'
 import GridPhotoPreviewer from '../GridPhotoPreviewer'
 import PhotoUploader from '../PhotoUploader/PhotoUploader'
-
-//
-import { IPostModalProps } from '../../types'
 
 //
 import { BiSolidImageAdd } from 'react-icons/bi'
@@ -90,7 +88,7 @@ export default function PostModal({ isOpen, setIsOpen, user, circleId, post, res
         options: {
             onSuccess: () => {
                 toast.success('Post created successfully.');
-                resetPage();
+                resetPage?.();
                 queryClient.invalidateQueries({ queryKey: [`circle post ${circleId}`] });
                 handleHideModal();
             }

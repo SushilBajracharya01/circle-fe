@@ -17,10 +17,11 @@ import Avatar from "../Avatar";
 import PostItem from "../PostItem";
 import MenuItem from "../MenuItem";
 import PostInput from "./PostInput";
+import PostListLoading from '../@Loadings/PostListLoading';
 
 //
 import { ICircleMainProps, ICirclePostsResponse, IPost, IUserProps } from "../../types";
-import { VscLoading } from 'react-icons/vsc';
+
 
 /**
  * 
@@ -193,9 +194,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
                     dataLength={posts.length}
                     next={fetchData}
                     hasMore={hasMorePost}
-                    loader={<div className='flex justify-center items-center py-4'>
-                        <VscLoading className="animate-spin" />
-                    </div>}
+                    loader={<PostListLoading postCounts={2} />}
                     endMessage={
                         <p className='bg-gray-100 p-4 text-center'>
                             <b>You have seen it all.</b>

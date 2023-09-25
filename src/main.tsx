@@ -1,6 +1,7 @@
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client'
 import { ToastContainer } from 'react-toastify';
+import { SkeletonTheme } from 'react-loading-skeleton';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import {
   createBrowserRouter,
@@ -16,13 +17,15 @@ import { store } from './_redux/store';
 //
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-loading-skeleton/dist/skeleton.css';
+
+//
 import Home from './pages/Home';
 import { ROLES } from './constants/constants';
 import PersistLoginWrapper from './components/persistLogin/PersistLoginWrapper';
 import RequireAuth from './components/requireAuth/RequireAuthWrapper';
 import ProtectedRoute from './components/protectedRoute/ProtectedRoute';
 import CirclePage from './pages/Circle';
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -67,10 +70,12 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
-    <Provider store={store}>
-      <RouterProvider router={router} />
+    <SkeletonTheme baseColor="#e4e4e4" highlightColor="#eeeeee">
+      <Provider store={store}>
+        <RouterProvider router={router} />
 
-      <ToastContainer />
-    </Provider>
+        <ToastContainer />
+      </Provider>
+    </SkeletonTheme>
   </QueryClientProvider>
 )

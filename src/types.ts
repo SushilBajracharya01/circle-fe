@@ -226,7 +226,7 @@ export interface IPostModalProps {
     user: IUserProps;
     circleId: string;
     post?: IPost;
-    resetPage: () => void;
+    resetPage?: () => void;
 }
 
 export interface ICirclePostsResponse {
@@ -236,4 +236,8 @@ export interface ICirclePostsResponse {
     totalDocuments: number;
     totalPage: number;
     results: IPost[]
+}
+
+export interface IPostListLoadingProps {
+    postCounts: number;
 }
