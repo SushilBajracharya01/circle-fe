@@ -15,6 +15,7 @@ import Input from '../Input'
 import Avatar from '../Avatar'
 import Button from '../Button'
 import GridPhotoPreviewer from '../GridPhotoPreviewer'
+import PostModalWrapper from '../@Post/PostModalWrapper'
 import PhotoUploader from '../PhotoUploader/PhotoUploader'
 
 //
@@ -179,84 +180,74 @@ export default function PostModal({ isOpen, setIsOpen, user, circleId, post, res
     }
 
     return (
-        <Dialog
-            open={isOpen}
-            onClose={handleHideModal}
-            className="relative z-50"
+        <PostModalWrapper
+            isOpen={isOpen}
+            handleHideModal={handleHideModal}
         >
-            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+            {/* Heading */}
+            <div className="flex justify-between items-center p-3 border-b border-gray-600">
+                <div></div>
 
-            {/* <div className="fixed inset-0 flex w-screen items-center justify-center p-4"> */}
-            <div className="fixed inset-0 w-screen overflow-y-auto">
-                <div className="flex min-h-full items-center justify-center p-4">
-                    <Dialog.Panel className="mx-auto w-[95%] max-w-xl rounded-md bg-white">
-                        {/* Heading */}
-                        <div className="flex justify-between items-center p-3 border-b border-gray-600">
-                            <div></div>
+                <Dialog.Title className='text-xl font-extrabold'>{isEdit ? "Edit" : "Create"} post</Dialog.Title>
 
-                            <Dialog.Title className='text-xl font-extrabold'>{isEdit ? "Edit" : "Create"} post</Dialog.Title>
-
-                            <AiFillCloseCircle fontSize={35} className="text-gray-800 hover:text-gray-600 transition-colors cursor-pointer" onClick={handleHideModal} />
-                        </div>
-
-                        {/* Body */}
-                        <div className="p-3">
-                            <div className="flex items-center mb-2">
-                                <Avatar isCloudinary url={user.photo} size="sm" />
-
-                                <div className="ml-4">
-                                    <h1 className="mb-0 text-md font-medium leading-snug">{user.fullname}</h1>
-                                </div>
-                            </div>
-
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <Input
-                                    name="content"
-                                    type="textarea"
-                                    errors={errors}
-                                    register={register}
-                                    disabled={loading}
-                                />
-
-                                <div>
-                                    {
-                                        showFileUpload &&
-                                        <div className="mt-2 border border-gray-200 rounded-md p-2 relative">
-                                            <AiFillCloseCircle fontSize="30" className="cursor-pointer absolute top-2 right-2 z-10 text-gray-700" onClick={() => setShowFileUpload(false)} />
-
-                                            <PhotoUploader handleChange={handleChange} previewUrls={previewUrls} isMulti={false} onRemove={handleImageRemove} />
-
-
-                                        </div>
-                                    }
-                                    <GridPhotoPreviewer previews={uploadedImages} editMode onRemove={handleUploadedImageRemove} />
-
-                                    <div className="flex justify-between items-center mt-2 border rounded-md border-gray-200 p-2">
-                                        <div className="text-lg font-bold">Add to your post</div>
-
-                                        <div
-                                            className={`rounded-full ${showFileUpload ? "bg-gray-300" : "bg-gray-200"} w-10 h-10 flex justify-center items-center cursor-pointer`}
-                                            onClick={() => setShowFileUpload(true)}
-                                        >
-                                            <BiSolidImageAdd fontSize={24} />
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div className="mt-4">
-                                    <Button
-                                        className="w-full justify-center"
-                                        label="Post"
-                                        disabled={loading}
-                                        isLoading={loading}
-                                    />
-                                </div>
-                            </form>
-                        </div>
-                    </Dialog.Panel>
-                </div>
+                <AiFillCloseCircle fontSize={35} className="text-gray-800 hover:text-gray-600 transition-colors cursor-pointer" onClick={handleHideModal} />
             </div>
-        </Dialog >
+
+            {/* Body */}
+            <div className="p-3">
+                <div className="flex items-center mb-2">
+                    <Avatar isCloudinary url={user.photo} size="sm" />
+
+                    <div className="ml-4">
+                        <h1 className="mb-0 text-md font-medium leading-snug">{user.fullname}</h1>
+                    </div>
+                </div>
+
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Input
+                        name="content"
+                        type="textarea"
+                        errors={errors}
+                        register={register}
+                        disabled={loading}
+                    />
+
+                    <div>
+                        {
+                            showFileUpload &&
+                            <div className="mt-2 border border-gray-200 rounded-md p-2 relative">
+                                <AiFillCloseCircle fontSize="30" className="cursor-pointer absolute top-2 right-2 z-10 text-gray-700" onClick={() => setShowFileUpload(false)} />
+
+                                <PhotoUploader handleChange={handleChange} previewUrls={previewUrls} isMulti={false} onRemove={handleImageRemove} />
+
+
+                            </div>
+                        }
+                        <GridPhotoPreviewer previews={uploadedImages} editMode onRemove={handleUploadedImageRemove} />
+
+                        <div className="flex justify-between items-center mt-2 border rounded-md border-gray-200 p-2">
+                            <div className="text-lg font-bold">Add to your post</div>
+
+                            <div
+                                className={`rounded-full ${showFileUpload ? "bg-gray-300" : "bg-gray-200"} w-10 h-10 flex justify-center items-center cursor-pointer`}
+                                onClick={() => setShowFileUpload(true)}
+                            >
+                                <BiSolidImageAdd fontSize={24} />
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className="mt-4">
+                        <Button
+                            className="w-full justify-center"
+                            label="Post"
+                            disabled={loading}
+                            isLoading={loading}
+                        />
+                    </div>
+                </form>
+            </div>
+        </PostModalWrapper>
     )
 }
