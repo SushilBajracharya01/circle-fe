@@ -204,7 +204,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
 
             <div>
                 <InfiniteScroll
-                    dataLength={posts.length}
+                    dataLength={posts?.length}
                     next={fetchData}
                     hasMore={hasMorePost}
                     loader={<PostListLoading postCounts={2} />}
