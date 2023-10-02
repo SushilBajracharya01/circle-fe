@@ -106,7 +106,7 @@ export interface IUserProps {
 
 export interface ISidebarItemProps {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    icon: any;
+    icon?: any;
     title?: string;
     href: string;
 }
