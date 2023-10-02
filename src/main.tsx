@@ -41,6 +41,10 @@ const router = createBrowserRouter([
           path: "circle/:id",
           element: <CirclePage />,
         },
+        {
+          path: "profile/:id",
+          element: <CirclePage />,
+        },
       ]
     }
     ]
