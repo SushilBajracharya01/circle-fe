@@ -12,4 +12,8 @@ const postSchema = yup.object({
     content: yup.string().required()
 }).required();
 
-export { circleSchema, postSchema };
+const commentSchema = yup.object({
+    comment: yup.string().required()
+}).required();
+
+export { circleSchema, postSchema, commentSchema };

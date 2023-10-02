@@ -7,6 +7,10 @@ export default function Avatar({ url, size = 'md', showStatus, isOnline, isCloud
     let classes = '';
     let sizes = { width: 40, height: 40 }
     switch (size) {
+        case 'xs':
+            classes = "h-8 w-8";
+            sizes = { width: 38, height: 38 };
+            break;
         case 'sm':
             classes = "h-10 w-10";
             sizes = { width: 40, height: 40 };
