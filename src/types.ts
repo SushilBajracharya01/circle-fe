@@ -6,6 +6,7 @@ export interface IInputProps {
     label?: string;
     name: string;
     type?: typeT;
+    rows?: number;
     isRequired?: boolean;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     register?: any;
@@ -45,7 +46,7 @@ export interface IRegisterFormData {
 
 export interface IAvatarProps {
     url?: string;
-    size?: "sm" | "md" | "lg" | "xl" | "4xl",
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | "4xl",
     showStatus?: boolean;
     isOnline?: boolean;
     isPeople?: boolean;
@@ -57,6 +58,9 @@ export interface ILoginFormProps {
     password: string;
 }
 
+export interface ICommentForm{
+    comment: string;
+}
 export interface IAuthOptionsProps {
     multipart?: boolean;
     refreshToken?: string;
@@ -176,6 +180,28 @@ export interface ICreatedBy {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     photo: any;
 }
+
+export interface IPostModalWrapperProps {
+    isOpen: boolean;
+    handleHideModal: () => void;
+    children: ReactNode
+}
+
+export interface IPostViewModalProps {
+    isOpen: boolean;
+    setIsOpen: (value: boolean) => void;
+    post: IPost;
+    user: IUserProps | null;
+    isCreator: boolean;
+}
+
+export interface IPostContentProps {
+    post: IPost;
+    user: IUserProps | null;
+    isCreator: boolean;
+}
+
+
 export interface IPost {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     photos: any,
@@ -242,4 +268,9 @@ export interface ICirclePostsResponse {
 
 export interface IPostListLoadingProps {
     postCounts: number;
+}
+
+export interface ICommentInputProps {
+    user: IUserProps;
+    postId: string;
 }
