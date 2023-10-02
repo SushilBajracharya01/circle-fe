@@ -1,7 +1,7 @@
 import { IInputProps } from "../types"
 import Password from "./Password";
 
-export default function Input({ label, name, type, isRequired, register, errors, className, placeholder, disabled }: IInputProps) {
+export default function Input({ label, name, type, isRequired, register, errors, className, placeholder, disabled, rows = 5 }: IInputProps) {
 
     let element = null;
 
@@ -12,7 +12,7 @@ export default function Input({ label, name, type, isRequired, register, errors,
         case 'textarea':
             element = <div className="mt-1">
                 <textarea
-                    rows={5}
+                    rows={rows}
                     id={name}
                     name={name}
                     type={type}
