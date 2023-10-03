@@ -58,7 +58,7 @@ export interface ILoginFormProps {
     password: string;
 }
 
-export interface ICommentForm{
+export interface ICommentForm {
     comment: string;
 }
 export interface IAuthOptionsProps {
@@ -274,4 +274,24 @@ export interface IPostListLoadingProps {
 export interface ICommentInputProps {
     user: IUserProps;
     postId: string;
+}
+export interface IComment {
+    comment: string;
+    createdAt: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    photo: any;
+    postId: string;
+    _id: string;
+    createdBy: ICreatedBy
+}
+export interface ICommentProps {
+    comment: IComment
+}
+
+export interface IHorizontalLineProps {
+    className?: string
+}
+
+export interface ITimeNowProps {
+    time: string;
 }
