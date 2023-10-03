@@ -7,10 +7,12 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import PostModalWrapper from "../@Post/PostModalWrapper";
 
 //
-import { IPostViewModalProps } from "../../types";
+import { IComment, IPostViewModalProps } from "../../types";
 import PostContent from "../@Post/PostContent";
 import CommentInput from "../@Comment/CommentInput";
 import { useQueryHook } from "../../hooks/react-query/useQueryHook";
+import Comment from "../@Comment/Comment";
+import HorizontalLine from "../HorizontalLine";
 
 /**
  * 
@@ -20,6 +22,9 @@ export default function PostViewModal({ isOpen, setIsOpen, post, user, isCreator
     const { data: postComments, isLoading: isCommentLoading } = useQueryHook({
         queryName: `post ${post._id} comment`,
         queryRoute: `/posts/${post._id}/comment`,
+        options: {
+            enabled: Boolean(post.commentCount)
+        }
     });
 
     console.log(postComments, 'postComments')
@@ -41,22 +46,33 @@ export default function PostViewModal({ isOpen, setIsOpen, post, user, isCreator
                 <AiFillCloseCircle fontSize={35} className="text-gray-800 hover:text-gray-600 transition-colors cursor-pointer" onClick={handleHideModal} />
             </div>
 
-            <div className="pt-2 px-3 mb-1 max-h-[300px] overflow-y-auto">
-                <PostContent
-                    post={post}
-                    user={user}
-                    isCreator={isCreator}
-                />
+            <div className="max-h-[70vh] overflow-y-auto">
+                <div className="pt-2 px-3 mb-1 max-h-[300px] overflow-y-auto">
+                    <PostContent
+                        post={post}
+                        user={user}
+                        isCreator={isCreator}
+                    />
 
-                <div className='flex justify-between text-sm'>
-                    <div></div>
+                    <HorizontalLine />
 
-                    <div className="text-gray-800 cursor-default">{post.commentCount} Comments</div>
+                    <div className='flex justify-between text-sm'>
+                        <div></div>
+
+                        <div className="text-gray-800 cursor-default">{post.commentCount} Comments</div>
+                    </div>
                 </div>
-            </div>
 
-            <div>
-                {console.log(postComments, 'postComments')}
+                <HorizontalLine className="px-3" />
+
+                <div className="pt-2 px-3 ">
+                    {
+                        isCommentLoading && <div>Loading ...</div>
+                    }
+                    {
+                        postComments?.result.map((comment: IComment) => <Comment key={comment._id} comment={comment} />)
+                    }
+                </div>
             </div>
 
             {

@@ -11,15 +11,13 @@ import { BiSolidSend } from "react-icons/bi";
  * 
  */
 export default function CommentInput({ user, postId }: ICommentInputProps) {
-    console.log(postId, 'postId')
-
-    const { register, handleSubmit } = useForm({
+    const { register, handleSubmit, reset } = useForm({
         resolver: yupResolver(commentSchema),
     }
     );
 
     const handleOnPostSuccess = () => {
-        console.log('hello')
+        reset();
     }
 
     const handleOnPostError = () => {
