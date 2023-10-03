@@ -41,11 +41,11 @@ export default function PostItem({ post }: IPostItemProps) {
             <div className='flex justify-between text-sm'>
                 <div></div>
 
-                <div className="text-gray-800 cursor-pointer" onClick={handleShowPostModal}>0 Comments</div>
+                <div className="text-gray-800 cursor-pointer" onClick={handleShowPostModal}>{post.commentCount} Comments</div>
             </div>
 
             {
-                user &&
+                user && openPostModal &&
                 <PostViewModal
                     post={post}
                     user={user}

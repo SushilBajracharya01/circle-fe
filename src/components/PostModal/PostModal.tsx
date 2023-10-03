@@ -219,8 +219,6 @@ export default function PostModal({ isOpen, setIsOpen, user, circleId, post, res
                                 <AiFillCloseCircle fontSize="30" className="cursor-pointer absolute top-2 right-2 z-10 text-gray-700" onClick={() => setShowFileUpload(false)} />
 
                                 <PhotoUploader handleChange={handleChange} previewUrls={previewUrls} isMulti={false} onRemove={handleImageRemove} />
-
-
                             </div>
                         }
                         <GridPhotoPreviewer previews={uploadedImages} editMode onRemove={handleUploadedImageRemove} />

@@ -211,6 +211,7 @@ export interface IPost {
     createdBy: ICreatedBy,
     createdAt: string,
     updatedAt: string,
+    commentCount: number
 }
 export interface IPostItemProps {
     post: IPost;
