@@ -1,16 +1,16 @@
 import Skeleton from "react-loading-skeleton";
 
 //
-import { IPostListLoadingProps } from "../../types";
+import { IListLoadingProps } from "../../types";
 
 /**
  * 
  */
-export default function PostListLoading({ postCounts }: IPostListLoadingProps) {
+export default function PostListLoading({ count }: IListLoadingProps) {
     return (
         <div>
             {
-                Array(postCounts).fill(0).map((_, index: number) => (
+                Array(count).fill(0).map((_, index: number) => (
                     <div key={index} className="rounded bg-gray-100 px-3 py-4 mb-5">
                         <div className="flex justify-between items-center relative">
                             <div className="flex w-full">

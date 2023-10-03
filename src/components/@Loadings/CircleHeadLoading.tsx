@@ -5,7 +5,7 @@ import Skeleton from "react-loading-skeleton"
  */
 export default function CircleHeadLoading() {
     return (
-        <div className="bg-gray-100 p-3 mb-3 text-white rounded-md">
+        <div className="bg-gray-100 p-3 mb-3 text-white rounded-xl">
             <div className="flex justify-between items-center gap-4 w-full">
                 <div className="flex items-center w-full">
                     <Skeleton circle width={80} height={80} />

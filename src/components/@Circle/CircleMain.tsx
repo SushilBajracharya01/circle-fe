@@ -129,7 +129,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
                     isCircleLoading ?
                         <CircleHeadLoading />
                         :
-                        <div className="bg-blue-600 p-3 mb-3 text-white rounded-md">
+                        <div className="bg-blue-600 p-3 mb-3 text-white rounded-xl">
                             <div className="flex justify-between items-center gap-4">
                                 <div className="flex items-center">
                                     <Avatar isCloudinary url={circle?.result?.photo?.public_id} size="lg" isPeople={false} />
@@ -207,7 +207,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
                     dataLength={posts?.length}
                     next={fetchData}
                     hasMore={hasMorePost}
-                    loader={<PostListLoading postCounts={2} />}
+                    loader={<PostListLoading count={2} />}
                     endMessage={
                         <p className='bg-gray-100 p-4 text-center'>
                             <b>You have seen it all.</b>

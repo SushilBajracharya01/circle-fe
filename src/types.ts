@@ -267,8 +267,8 @@ export interface ICirclePostsResponse {
     results: IPost[]
 }
 
-export interface IPostListLoadingProps {
-    postCounts: number;
+export interface IListLoadingProps {
+    count: number;
 }
 
 export interface ICommentInputProps {

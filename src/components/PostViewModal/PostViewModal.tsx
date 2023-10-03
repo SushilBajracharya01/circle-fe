@@ -4,15 +4,17 @@ import { Dialog } from "@headlessui/react";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 //
+import Comment from "../@Comment/Comment";
+import HorizontalLine from "../HorizontalLine";
+import PostContent from "../@Post/PostContent";
+import CommentInput from "../@Comment/CommentInput";
+import CommentLoading from "../@Loadings/CommentLoading";
 import PostModalWrapper from "../@Post/PostModalWrapper";
 
 //
 import { IComment, IPostViewModalProps } from "../../types";
-import PostContent from "../@Post/PostContent";
-import CommentInput from "../@Comment/CommentInput";
 import { useQueryHook } from "../../hooks/react-query/useQueryHook";
-import Comment from "../@Comment/Comment";
-import HorizontalLine from "../HorizontalLine";
+
 
 /**
  * 
@@ -67,7 +69,7 @@ export default function PostViewModal({ isOpen, setIsOpen, post, user, isCreator
 
                 <div className="pt-2 px-3 ">
                     {
-                        isCommentLoading && <div>Loading ...</div>
+                        isCommentLoading && <CommentLoading count={2} />
                     }
                     {
                         postComments?.result.map((comment: IComment) => <Comment key={comment._id} comment={comment} />)
