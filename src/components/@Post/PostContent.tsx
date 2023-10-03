@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { Fragment, useState } from "react";
@@ -15,6 +14,7 @@ import { BiPencil, BiTrash } from "react-icons/bi";
 
 //
 import Avatar from "../Avatar";
+import TimeNow from "../TimeNow";
 import MenuItem from "../MenuItem";
 import PostModal from "../PostModal";
 import GridPhotoPreviewer from "../GridPhotoPreviewer";
@@ -72,7 +72,7 @@ export default function PostContent({ post, user, isCreator }: IPostContentProps
                         <h1 className="mb-0 text-md font-medium leading-snug">{post.createdBy.fullname}</h1>
 
                         <div className="text-sm text-gray-500 leading-none">
-                            {dayjs(post.createdAt).toNow(true)}
+                            <TimeNow time={post.createdAt} />
                         </div>
                     </div>
                 </div>
