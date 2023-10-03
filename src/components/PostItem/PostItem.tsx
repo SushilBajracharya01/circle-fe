@@ -31,7 +31,7 @@ export default function PostItem({ post }: IPostItemProps) {
 
 
     return (
-        <div className="rounded bg-gray-100 p-2 px-3 mb-5">
+        <div className="rounded-xl bg-gray-100 p-2 px-3 mb-5">
             <PostContent
                 post={post}
                 user={user}

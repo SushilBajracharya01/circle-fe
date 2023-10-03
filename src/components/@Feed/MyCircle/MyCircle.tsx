@@ -30,10 +30,10 @@ export default function MyCircle() {
     }
 
     return (
-        <div className="bg-gray-100 p-4 rounded-lg">
+        <div className="bg-gray-100 p-4 rounded-xl">
             {
                 isLoading ?
-                    <div>Loading ...</div>
+                    <div>Loading ... </div>
                     :
                     <div>
                         <div className="flex justify-between items-center mb-5">

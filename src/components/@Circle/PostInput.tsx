@@ -17,7 +17,7 @@ export default function PostInput({ user, circleId, resetPage }: IPostInputProps
 
 
   return (
-    <div className="bg-gray-200 rounded-md p-3 mb-3" >
+    <div className="bg-gray-200 rounded-xl p-3 mb-3" >
       <div className="flex gap-3">
         <Avatar size="sm" />
 

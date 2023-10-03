@@ -42,7 +42,7 @@ export default function CommentInput({ user, postId }: ICommentInputProps) {
             <div className="flex gap-4">
                 <Avatar isCloudinary url={user?.photo} size="xs" />
 
-                <div className="flex flex-col w-full bg-gray-100 p-1 rounded-md">
+                <div className="flex flex-col w-full bg-gray-100 px-2 py-1 rounded-xl">
                     <Input className="" name="comment" register={register} type="textarea" rows={2} />
                     <div className="flex justify-between mt-1">
                         <div></div>
