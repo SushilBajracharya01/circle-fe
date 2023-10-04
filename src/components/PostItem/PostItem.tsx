@@ -9,6 +9,7 @@ import { IPostItemProps, IUserProps } from "../../types";
 //
 import PostViewModal from '../PostViewModal';
 import PostContent from '../@Post/PostContent';
+import HorizontalLine from '../HorizontalLine';
 
 dayjs.extend(relativeTime)
 
@@ -37,6 +38,8 @@ export default function PostItem({ post }: IPostItemProps) {
                 user={user}
                 isCreator={isCreator}
             />
+
+            <HorizontalLine />
 
             <div className='flex justify-between text-sm'>
                 <div></div>

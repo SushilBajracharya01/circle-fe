@@ -1,16 +1,25 @@
 import { useForm } from "react-hook-form";
-import { ICommentForm, ICommentInputProps } from "../../types";
-import Avatar from "../Avatar";
-import Input from "../Input";
-import { useMutationHook } from "../../hooks/react-query/useQueryHook";
+import { useQueryClient } from "react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+//
 import { commentSchema } from "../../schemas/Schemas";
+import { ICommentForm, ICommentInputProps } from "../../types";
+import { useMutationHook } from "../../hooks/react-query/useQueryHook";
+
+//
+import Input from "../Input";
+import Avatar from "../Avatar";
+
+//
 import { BiSolidSend } from "react-icons/bi";
 
 /**
  * 
  */
 export default function CommentInput({ user, postId }: ICommentInputProps) {
+    const queryClient = useQueryClient();
+
     const { register, handleSubmit, reset } = useForm({
         resolver: yupResolver(commentSchema),
     }
@@ -18,6 +27,7 @@ export default function CommentInput({ user, postId }: ICommentInputProps) {
 
     const handleOnPostSuccess = () => {
         reset();
+        queryClient.invalidateQueries([`post ${postId} comment`])
     }
 
     const handleOnPostError = () => {
