@@ -295,3 +295,13 @@ export interface IHorizontalLineProps {
 export interface ITimeNowProps {
     time: string;
 }
+
+export interface IPostCommentsProps {
+    shouldFetch: boolean;
+    postId: string;
+}
+
+export interface ICommentButtonProps {
+    count: number;
+    postId: string;
+}
