@@ -1,5 +1,5 @@
 import { Axios } from '../../apis/configs/axiosConfig';
-import { useMutation, useQuery } from 'react-query';
+import { QueryObserver, useMutation, useQuery, useQueryClient } from 'react-query';
 import { IAuthOptionsProps } from '../../types';
 
 interface IQueryOptions {
@@ -22,18 +22,33 @@ interface IQueryHook {
 	axiosOptions?: IAuthOptionsProps;
 }
 
+
+const requestService = async (queryRoute: string, params?: paramType[]) => {
+	params = params ?? [];
+	const queryParams = params.map((p) => p.join('='));
+	const response = await Axios.get(queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : ''));
+	return response?.data || {};
+};
+
 export const useQueryHook = ({ queryName, queryRoute, params = [], options = {} }: IQueryHook) => {
-	const requestService = async () => {
-		const queryParams = params.map((p) => p.join('='));
-		const response = await Axios.get(queryRoute + (params.length > 0 ? `?${queryParams.join('&')}` : ''));
-		return response?.data || {};
-	};
 	return useQuery({
 		queryKey: [queryName, ...params],
-		queryFn: requestService,
+		queryFn: () => requestService(queryRoute, params),
 		...options,
 	});
 };
+
+
+export const useQueryObserveHook = (queryRoute: string, queryName: string, params?: paramType[]) => {
+	params = params ?? [];
+	const queryClient = useQueryClient();
+	const observer = new QueryObserver(queryClient, {
+		queryKey: [queryName, ...params],
+		queryFn: () => requestService(queryRoute, params),
+	});
+
+	return observer;
+}
 
 interface IMutationHook {
 	queryRoute: string;
