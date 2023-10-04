@@ -10,7 +10,7 @@ import CommentLoading from '../@Loadings/CommentLoading';
 /**
  * 
  */
-export default function PostComments({ postId, shouldFetch }: IPostCommentsProps) {
+export default function PostComments({ postId, shouldFetch, isCreator }: IPostCommentsProps) {
     const { data: postComments, isLoading: isCommentLoading } = useQueryHook({
         queryName: `post ${postId} comment`,
         queryRoute: `/posts/${postId}/comment`,
@@ -25,7 +25,7 @@ export default function PostComments({ postId, shouldFetch }: IPostCommentsProps
                 isCommentLoading && <CommentLoading count={2} />
             }
             {
-                postComments?.result.map((comment: IComment) => <Comment key={comment._id} comment={comment} />)
+                postComments?.result.map((comment: IComment) => <Comment key={comment._id} comment={comment} isCreator={isCreator} />)
             }
         </div>
     )

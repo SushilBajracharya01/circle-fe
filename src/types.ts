@@ -273,7 +273,9 @@ export interface IListLoadingProps {
 
 export interface ICommentInputProps {
     user: IUserProps;
+    comment?: IComment;
     postId: string;
+    handleEditSuccess?: () => void;
 }
 export interface IComment {
     comment: string;
@@ -285,7 +287,8 @@ export interface IComment {
     createdBy: ICreatedBy
 }
 export interface ICommentProps {
-    comment: IComment
+    comment: IComment;
+    isCreator: boolean;
 }
 
 export interface IHorizontalLineProps {
@@ -299,6 +302,7 @@ export interface ITimeNowProps {
 export interface IPostCommentsProps {
     shouldFetch: boolean;
     postId: string;
+    isCreator: boolean;
 }
 
 export interface ICommentButtonProps {

@@ -56,7 +56,7 @@ export default function PostViewModal({ isOpen, setIsOpen, post, user, isCreator
 
                 <HorizontalLine className="px-3" />
 
-                <PostComments shouldFetch={Boolean(post.commentCount)} postId={post._id} />
+                <PostComments shouldFetch={Boolean(post.commentCount)} postId={post._id} isCreator={isCreator} />
             </div>
 
             {

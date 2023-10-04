@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useQueryClient } from "react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,13 +18,21 @@ import { BiSolidSend } from "react-icons/bi";
 /**
  * 
  */
-export default function CommentInput({ user, postId }: ICommentInputProps) {
+export default function CommentInput({ user, comment, postId, handleEditSuccess }: ICommentInputProps) {
     const queryClient = useQueryClient();
 
-    const { register, handleSubmit, reset } = useForm({
+    const isEdit = Boolean(comment);
+
+    const { register, handleSubmit, setValue, reset } = useForm({
         resolver: yupResolver(commentSchema),
     }
     );
+
+    useEffect(() => {
+        if (!comment) return;
+
+        setValue('comment', comment.comment);
+    }, [comment, setValue])
 
     const handleOnPostSuccess = () => {
         reset();
@@ -42,13 +51,39 @@ export default function CommentInput({ user, postId }: ICommentInputProps) {
         }
     })
 
+    const handleOnEditSuccess = () => {
+        reset();
+        handleEditSuccess?.();
+        queryClient.invalidateQueries([`post ${postId} comment`])
+    }
+
+    const handleOnEditError = () => {
+        console.log('oops')
+    }
+
+    const { mutate: editComment } = useMutationHook({
+        queryRoute: `/posts/comment/${comment?._id}`,
+        method: 'patch',
+        options: {
+            onSuccess: handleOnEditSuccess,
+            onError: handleOnEditError
+        }
+    })
+
     const onSubmit = (data: ICommentForm) => {
-        mutate({
-            comment: data.comment,
-        })
+        if (isEdit) {
+            editComment({
+                comment: data.comment
+            })
+        }
+        else {
+            mutate({
+                comment: data.comment,
+            })
+        }
     }
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="pb-2 px-3 ">
+        <form onSubmit={handleSubmit(onSubmit)} className={`${isEdit ? "" : "pb-2"} px-3 `}>
             <div className="flex gap-4">
                 <Avatar isCloudinary url={user?.photo} size="xs" />
 
