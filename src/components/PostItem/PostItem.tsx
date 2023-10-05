@@ -11,6 +11,9 @@ import PostViewModal from '../PostViewModal';
 import PostContent from '../@Post/PostContent';
 import HorizontalLine from '../HorizontalLine';
 
+//
+import { BiComment, BiLike } from 'react-icons/bi';
+
 dayjs.extend(relativeTime)
 
 /**
@@ -45,6 +48,18 @@ export default function PostItem({ post }: IPostItemProps) {
                 <div></div>
 
                 <div className="text-gray-800 cursor-pointer" onClick={handleShowPostModal}>{post.commentCount} Comments</div>
+            </div>
+
+            <HorizontalLine />
+            <div className='flex gap-1'>
+                <div className='flex justify-center items-center flex-1 hover:bg-white cursor-pointer rounded-lg p-1'>
+                    <BiLike className="mr-1" /> <span>Like</span>
+                </div>
+                <div
+                    className='flex justify-center items-center flex-1 hover:bg-white cursor-pointer rounded-lg p-1'
+                    onClick={handleShowPostModal}>
+                    <BiComment className="mr-1" /> <span>Comment</span>
+                </div>
             </div>
 
             {
