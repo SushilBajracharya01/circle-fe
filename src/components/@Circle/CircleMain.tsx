@@ -130,7 +130,7 @@ export default function CircleMain({ circleId }: ICircleMainProps) {
                         <CircleHeadLoading />
                         :
                         <div className="bg-blue-600 p-3 mb-3 text-white rounded-xl">
-                            <div className="flex justify-between items-center gap-4">
+                            <div className="flex flex-col items-start justify-between lg:items-center lg:flex-row gap-4 ">
                                 <div className="flex items-center">
                                     <Avatar isCloudinary url={circle?.result?.photo?.public_id} size="lg" isPeople={false} />
 

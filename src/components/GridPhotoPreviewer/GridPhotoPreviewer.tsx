@@ -66,7 +66,7 @@ export default function GridPhotoPreviewer({ previews = [], isCloudinary = true,
                         isCloudinary ?
                             <CloudinaryImg publicId={firstImage} width={600} height={400} className="object-contain" />
                             :
-                            <img src={firstImage} width={600} height={400} className="object-contain" />
+                            <img src={firstImage} width={600} height={400} className="object-contain w-full" />
                     }
                 </div>
             </div>

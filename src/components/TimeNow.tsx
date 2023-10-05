@@ -13,7 +13,7 @@ export default function TimeNow({ time }: ITimeNowProps) {
                 {dayjs(time).toNow(true)}
             </button>
 
-            <div id="tooltip-time-now" role="tooltip" className="group-hover:visible group-hover:opacity-100 invisible absolute z-10  inline-block px-3 py-2 text-sm font-medium text-white delay-500 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700 w-max top-6 left-0">
+            <div id="tooltip-time-now" role="tooltip" className="group-hover:visible group-hover:opacity-100 invisible absolute inline-block px-3 py-2 text-sm font-medium text-white delay-500 transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 dark:bg-gray-700 md:w-max top-6 left-0 w-min z-10">
 
                 {dayjs(time).format('dddd, MMMM DD, YYYY hh:mm A')}
                 
