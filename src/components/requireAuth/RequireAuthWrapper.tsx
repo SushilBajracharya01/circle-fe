@@ -5,7 +5,7 @@ import AuthLayout from "../AuthLayout";
 function RequireAuth({ allowedRoles }: IRequireAuthProps) {
     const location = useLocation();
     const { token, role } = useAuth();
-    console.log(token, 'require auth')
+    
     if (!token) {
         return <Navigate to="/login" state={{ from: location }} replace />
     }
